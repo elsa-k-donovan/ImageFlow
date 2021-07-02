@@ -1,0 +1,64 @@
+{% extends "Home/base.html" %}
+
+{%  load crispy_forms_tags  %}
+
+  {% block login %}
+
+  <script>
+    $(document).ready(function(){
+        $("#registerFail").modal('show');
+    });
+  </script>
+
+  <nav class="navbar navbar-dark" style="background-color: #000000;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <ul class="nav navbar-nav navbar-left pull-left">
+            <li class="nav-item">
+                <a class="nav-link" href="#"> <h1 style="font-size: large;"> <strong> Register </strong>  </h1> </a></li>
+            </li>
+          </ul>
+        </div>
+        <div class="navbar-body">
+          <ul class="nav navbar-nav navbar-right pull-right">
+            <li class="nav-item">
+                <a class="nav-link" href="/login/">
+                <span class="fa-stack fa-lg">
+                    <i class="fas fa-sign-in-alt"></i>
+                </span> Log In </a>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </nav>
+
+    <div class="container" >
+      {%  crispy registerForm registerForm.helper  %}
+      <br>
+      {% for message in messages %}
+        <div class="modal fade" id="registerFail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: red; font: border-style;">ERROR</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                {{ message }}
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  {% endblock login %}

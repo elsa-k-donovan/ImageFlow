@@ -1,0 +1,103 @@
+<!-- navbar_template.html -->
+
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'sidebar.css' %}">
+
+<nav class="navbar navbar-dark" style="background-color: #000000;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <ul class="nav navbar-nav navbar-left pull-left">
+            <li class="nav-item">
+                <a class="nav-link" href="#"> <h1 style="font-size: large;"> <strong> {{ PageName }} </strong>  </h1> </a></li>
+            </li>
+          </ul>
+        </div>
+        <div class="navbar-body">
+          <ul class="nav navbar-nav navbar-right pull-right">
+              <li class="nav-item">
+                <a class="nav-link" href="/logout/">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-sign-out-alt"></i>
+                  </span> Log Out </a></li>
+          </ul>
+        </div>
+    </div>
+</nav>
+  
+  
+  <nav role="navigation" >
+    <div id="menuToggle">
+      <!--
+      A fake / hidden checkbox is used as click reciever,
+      so you can use the :checked selector on it.
+      -->
+      <input type="checkbox" id="myCheck"  />
+      
+      <!--
+      Some spans to act as a hamburger.
+      
+      They are acting like a real hamburger,
+      not that McDonalds stuff.
+      -->
+      <span></span>
+      <span></span>
+      <span></span>
+      
+      <!--
+      Too bad the menu has to be inside of the button
+      but hey, it's pure CSS magic.
+      -->
+      <ul id="menu">
+        <div class="dropdown-btn">
+            <a href="/">Home</a>
+          </div>
+      
+
+        <div class="dropdown-btn">
+          <a href="#"> ImageFlow </a>
+          <span class="caret">
+          </span>
+        </div>
+        <div class="dropdown-container"><!-- Ruined formatting for it to look nice on website --><a href="/ImageFlow/ImageGathering"> Image Gathering </a>
+          <a href="/ImageFlow/ImageAnalysis"> Image Analysis </a>
+          <a href="/ImageFlow/ImageVisualization"> Image Visualization </a>
+      </div>
+      
+      </ul>
+    </div>
+  </nav>
+
+  <script>
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+  
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } 
+        else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+
+/*  Closes sidebar if you click anywhere else on the screen  */
+document.addEventListener("click", function(e) {
+  var divWidth = $("#menu").width();	// should be 300, but its 200 for some reason
+  var divHeight = 	$("#menu").height();  
+  var x = document.getElementById("myCheck").checked;
+  if (x == true){
+    var clickX = e.clientX;
+    var clickY = e.clientY;
+    if (clickX > 300){// || clickY > 370) {
+      $("#myCheck").prop("checked", false)
+    } 
+  }
+
+});
+  </script>

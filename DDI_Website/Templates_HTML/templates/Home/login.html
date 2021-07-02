@@ -1,0 +1,68 @@
+{% extends "Home/base.html" %}
+
+
+{%  load crispy_forms_tags  %}
+
+{% block title %}
+
+
+<nav class="navbar navbar-dark" style="background-color: #000000;">
+  <div class="container-fluid">
+      <div class="navbar-header">
+        <ul class="nav navbar-nav navbar-left pull-left">
+          <li class="nav-item">
+            <a class="nav-link" href="#"> <h1 style="font-size: large;"> <strong> Login </strong>  </h1> </a></li>
+        </ul>
+      </div>
+      <div class="navbar-body">
+        <ul class="nav navbar-nav navbar-right pull-right">
+            <li class="nav-item">
+              <a class="nav-link" href="/register/">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-user-plus"></i>
+                </span> Sign Up </a></li>
+        </ul>
+      </div>
+  </div>
+</nav>
+
+{% endblock title %}
+
+  {% block login %}
+    <script>
+      $(document).ready(function(){
+          $("#loginFail").modal('show');
+      });
+    </script>
+
+    <div class="container">
+      {%  crispy Loginform Loginform.helper  %}
+      <br>
+      <!-- data-toggle="modal" data-target="#myModal" -->
+      {% for message in messages %}
+        <div class="modal fade" id="loginFail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: red; font: border-style;">ERROR</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                {{ message }}
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <p> <a href="/register"> Register here </a> if you dont have an account yet</p> 
+    </div>
+  {% endblock login %}
