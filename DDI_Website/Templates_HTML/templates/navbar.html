@@ -4,29 +4,29 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'sidebar.css' %}">
 
-<nav class="navbar navbar-dark" style="background-color: #000000;">
+<nav class="navbar navbar-dark" style="filter: drop-shadow(0 0 0.75rem grey);">
     <div class="container-fluid">
         <div class="navbar-header">
           <ul class="nav navbar-nav navbar-left pull-left">
             <li class="nav-item">
-                <a class="nav-link" href="#"> <h1 style="font-size: large;"> <strong> {{ PageName }} </strong>  </h1> </a></li>
+                <a class="nav-link" href="#"> <h1 style="font-size: 24px; text-transform: uppercase; color:black" > <strong> {{ PageName }} </strong>  </h1> </a></li>
             </li>
           </ul>
         </div>
         <div class="navbar-body">
           <ul class="nav navbar-nav navbar-right pull-right">
-              <li class="nav-item">
-                <a class="nav-link" href="/logout/">
-                  <span class="fa-stack fa-lg">
+              <li class="nav-item" style="color:black">
+                <a class="nav-link" href="/logout/" style="color:black">
+                  <span class="fa-stack fa-lg" style="color:black">
                     <i class="fas fa-sign-out-alt"></i>
-                  </span> Log Out </a></li>
+                  </span >Log Out</a></li>
           </ul>
         </div>
     </div>
 </nav>
   
   
-  <nav role="navigation" >
+  <nav role="navigation" style="background-color: lightgrey;">
     <div id="menuToggle">
       <!--
       A fake / hidden checkbox is used as click reciever,
@@ -49,9 +49,6 @@
       but hey, it's pure CSS magic.
       -->
       <ul id="menu">
-        <div class="dropdown-btn">
-            <a href="/">Home</a>
-          </div>
       
 
         <div class="dropdown-btn">
