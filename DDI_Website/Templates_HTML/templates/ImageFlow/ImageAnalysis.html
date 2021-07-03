@@ -22,7 +22,8 @@
 {% endblock title %}
 
   {% block taskResults %}
-    <div class="container" id="analysis" style="margin: 0 auto;">
+ 
+    <div class="container" id="analysis" style="margin: 0 auto; z-index:-1;">
       <h2>Task Results Table</h2>
       <div id="analysisForm">
         {%  crispy form form.helper  %}

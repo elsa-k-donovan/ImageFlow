@@ -4,13 +4,24 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'sidebar.css' %}">
 
-<nav class="navbar navbar-dark" style="filter: drop-shadow(0 0 0.75rem grey);">
-    <div class="container-fluid">
-        <div class="navbar-header">
-          <ul class="nav navbar-nav navbar-left pull-left">
-            <li class="nav-item">
-                <a class="nav-link" href="#"> <h1 style="font-size: 24px; text-transform: uppercase; color:black" > <strong> {{ PageName }} </strong>  </h1> </a></li>
-            </li>
+<nav class="navbar navbar-dark" style="filter: drop-shadow(0 0 0.75rem grey); z-index:20">
+    <div class="container-fluid" style="z-index:20">
+        <div class="navbar-header" style="z-index:20">
+          <ul class="nav navbar-nav navbar-left pull-left" style="z-index:20;">
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="#"> <h1 style="font-size: 24px; text-transform: uppercase; color:black" > <strong> {{ PageName }} </strong>  </h1> </a></li> -->
+                
+                <li class="nav-item" style="z-index:20;">
+                <div class="dropdown" style="z-index:20;">
+                  <button class="dropbtn" style="font-size: 24px; text-transform: uppercase; color:black;"><strong> {{ PageName }} </strong></button>
+                  <div class="dropdown-content" style="z-index:20;">
+                    <a href="/ImageFlow/ImageGathering">Image Gathering</a>
+                    <a href="/ImageFlow/ImageAnalysis">Image Analysis</a>
+                    <a href="/ImageFlow/ImageVisualization">Image Visualization</a>
+                  </div>
+                </div>
+              </li>
+            
           </ul>
         </div>
         <div class="navbar-body">
@@ -26,12 +37,12 @@
 </nav>
   
   
-  <nav role="navigation" style="background-color: lightgrey;">
+  <!-- <nav role="navigation" style="background-color: lightgrey;">
     <div id="menuToggle">
       <!--
       A fake / hidden checkbox is used as click reciever,
       so you can use the :checked selector on it.
-      -->
+      
       <input type="checkbox" id="myCheck"  style="color:white"/>
       
       <!--
@@ -39,7 +50,7 @@
       
       They are acting like a real hamburger,
       not that McDonalds stuff.
-      -->
+    
       <span></span>
       <span></span>
       <span></span>
@@ -47,7 +58,7 @@
       <!--
       Too bad the menu has to be inside of the button
       but hey, it's pure CSS magic.
-      -->
+      
       <ul id="menu" style="background-color: black;">
       
 
@@ -56,7 +67,7 @@
           <span class="caret">
           </span>
         </div>
-        <div class="dropdown-container" style="color:white; background-color: black;"><!-- Ruined formatting for it to look nice on website -->
+        <div class="dropdown-container" style="color:white; background-color: black;"><!-- Ruined formatting for it to look nice on website 
           <a href="/ImageFlow/ImageGathering" style="color:white"> Image Gathering </a>
           <a href="/ImageFlow/ImageAnalysis" style="color:white"> Image Analysis </a>
           <a href="/ImageFlow/ImageVisualization" style="color:white"> Image Visualization </a>
@@ -64,7 +75,7 @@
       
       </ul>
     </div>
-  </nav>
+  </nav> -->
 
   <script>
     /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
