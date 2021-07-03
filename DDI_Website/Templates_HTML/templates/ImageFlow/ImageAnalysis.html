@@ -24,8 +24,14 @@
   {% block taskResults %}
     <div class="container" id="analysis" style="margin: 0 auto;">
       <h2>Task Results Table</h2>
+      <div id="analysisForm">
+        {%  crispy form form.helper  %}
+        
+        {%  load static  %}
+      </div>
           <div class="list-group">
-            <div class="d-flex w-100 justify-content-between">
+            <div class="d-flex w-100 justify-content-between" >
+
               <table class="table table-dark" id="resultsTable">
                 <thead>
                   <tr>
@@ -101,8 +107,9 @@
                     </tr>
                   {% endfor %}
                 </tbody>
+              </table>
             </div>
-          </div>
+
     </div>
     
 
@@ -116,18 +123,10 @@
 
 
         $('#resultsTable').DataTable();
-        console.log('about to change style');
-        document.getElementById("resultsTable").style.width = "red";
-        console.log('changed')
-
 
     </script>
 
-  <div id="analysisForm">
-    {%  crispy form form.helper  %}
-    
-    {%  load static  %}
-  </div>
+
   {% endblock taskResults %}
 
   
