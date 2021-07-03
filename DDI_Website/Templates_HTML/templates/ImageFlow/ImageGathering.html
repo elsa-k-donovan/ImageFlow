@@ -4,7 +4,7 @@
 {%  load crispy_forms_tags  %}
 
 {% block title %}
-    {% include 'navbar.html' with PageName='Image Gathering' %}
+    {% include 'navbar.html' with PageName='🔎 Image Gathering' %}
     
 {% endblock title %}
 
@@ -15,7 +15,7 @@
         $("#CHANGETHIS").modal('show');
     });
   </script>
-  <div class="container" id="gathering">
+  <div class="container" id="gathering" style="margin-top:15%;">
     <div class="text-left float-left pull-left">
 
       {%  crispy gather_form gather_form.helper  %}
