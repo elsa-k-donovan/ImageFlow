@@ -16,7 +16,7 @@
    padding: 0;
    
    /* make it look decent enough */
-   background: white;
+   background: lightgrey;
    color: black;
    font-family: "Avenir Next", "Avenir", sans-serif;
  }
@@ -223,8 +223,4 @@
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
-}
-
-.navbar {
-  color: black;
 }

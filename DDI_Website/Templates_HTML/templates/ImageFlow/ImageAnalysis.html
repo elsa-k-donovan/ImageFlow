@@ -1,4 +1,5 @@
-{% extends "Twitter/base.html" %}
+
+{% extends "ImageFlow/base.html" %}
 
 {%  load static  %}
 
@@ -6,7 +7,7 @@
 
 {% block title %}
   {% include 'navbar.html' with PageName='Image Analysis' %}
-  <link href="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css" rel="stylesheet">
+  <!-- <link href="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css" rel="stylesheet"> -->
 
 <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
@@ -14,19 +15,14 @@
 <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
 
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"/>
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"/> -->
  
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
   
 {% endblock title %}
-<style>
-  html {
-    background-color: lightgrey;
-  }
-</style>
 
   {% block taskResults %}
-    <div class="container">
+    <div class="container" id="analysis" style="margin: 0 auto;">
       <h2>Task Results Table</h2>
           <div class="list-group">
             <div class="d-flex w-100 justify-content-between">
@@ -120,10 +116,14 @@
 
 
         $('#resultsTable').DataTable();
+        console.log('about to change style');
+        document.getElementById("resultsTable").style.width = "red";
+        console.log('changed')
+
 
     </script>
 
-  <div>
+  <div id="analysisForm">
     {%  crispy form form.helper  %}
     
     {%  load static  %}
