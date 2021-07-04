@@ -58,7 +58,7 @@ def ImageGathering(request):
             board = [board]
         
         #tasks_ImageGathering(startDate, endDate, platform, subReddit, board, Country, fb_access_tk)
-        task = tasks_ImageGathering.delay(startDate , endDate, platform, subReddit, board, Country, fb_access_tk, access_key, access_secret_key, api_key, api_secret_key)
+        task = tasks_ImageGathering.delay(startDate , endDate, platform, subReddit, board, Country, fb_access_tk, access_key, access_secret_key, api_key, api_secret_key, hashtags)
         # task_id = task.task_id
         numTasks = TaskResult.objects.all().count() + 1
         currentUserModelExt.update(arrayTasksCompleted=currentUserModelExt[0].arrayTasksCompleted + [numTasks])
