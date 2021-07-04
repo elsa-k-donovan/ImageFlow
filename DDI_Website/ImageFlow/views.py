@@ -30,6 +30,11 @@ def ImageGathering(request):
         board = submited_data["board"]
         Country = submited_data["Country"]
         fb_access_tk = submited_data["access_token"]
+        access_key = submited_data["access_key"]
+        access_secret_key = submited_data["access_secret_key"]
+        api_key = submited_data["api_key"]
+        api_secret_key = submited_data["api_secret_key"]
+        hashtags = submited_data["hashtags"]
 
         ### TESTING
         print("startDate = " + startDate)
@@ -39,6 +44,7 @@ def ImageGathering(request):
         print("board = " + board)
         print("Country = " + Country)
         print("fb_access_tk = " + fb_access_tk)
+        print("access_key = " + access_key)
 
         if ',' in subReddit:
             subReddit = subReddit.split(',')
@@ -51,7 +57,7 @@ def ImageGathering(request):
             board = [board]
         
         #tasks_ImageGathering(startDate, endDate, platform, subReddit, board, Country, fb_access_tk)
-        task = tasks_ImageGathering.delay(startDate , endDate, platform, subReddit, board, Country, fb_access_tk)
+        task = tasks_ImageGathering.delay(startDate , endDate, platform, subReddit, board, Country, fb_access_tk, access_key, access_secret_key, api_key, api_secret_key)
         # task_id = task.task_id
         numTasks = TaskResult.objects.all().count() + 1
         currentUserModelExt.update(arrayTasksCompleted=currentUserModelExt[0].arrayTasksCompleted + [numTasks])

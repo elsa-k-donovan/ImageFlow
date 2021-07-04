@@ -51,6 +51,12 @@ nav {
     display:none;
 }
 
+
+#div_id_access_key, #div_id_access_secret_key, #div_id_api_key, #div_id_api_secret_key, #div_id_hashtags{
+  display: none;
+}
+
+
 label {
     margin: 0px;
 }
