@@ -32,9 +32,54 @@ nav {
     width: 30%;
 }
 
+/* REDDIT */
+#div_id_subReddit {
+    display:block;
+}
+
+/* FACEBOOK */
+#div_id_access_token {
+    display: none;
+}
+
+/* 4CHAN */
+#div_id_board {
+    display: none;
+}
+
+#div_id_Country {
+    display:none;
+}
+
 label {
     margin: 0px;
 }
+
+/*Radio Button to show divs */
+#id_choice_platform_2:checked ~ #div_id_access_token
+{
+  display:contents;
+  background-color: green;
+}
+
+
+
+input#id_choice_platform_2:checked + div #div_id_access_token {
+  display: block;
+}
+
+input[type="radio"]#id_choice_platform_2:checked + input#id_choice_platform_2  {
+  color: green;
+}
+
+
+#id_choice_platform_1:checked ~ #div_id_subReddit
+{
+  visibility: visible;
+  background-color: green;
+}
+
+
 
 
 #gathering {

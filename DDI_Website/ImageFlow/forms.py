@@ -15,8 +15,8 @@ class Image_Gathering(forms.Form):
     choice_platform = forms.MultipleChoiceField(
         label='Please choose platform:',
         required=True,
-        widget=forms.CheckboxSelectMultiple,
-        choices= CHOICES_PLATFORM ,
+        widget=forms.RadioSelect,
+        choices= CHOICES_PLATFORM,
     )
     startDate = forms.CharField(label = 'Start Date',max_length=10, required=True, widget=forms.TextInput(attrs={'placeholder': 'MM/DD/YYYY'}))
     endDate = forms.CharField(label = 'End Date',max_length=10, required=True, widget=forms.TextInput(attrs={'placeholder' : 'MM/DD/YYYY'}))
@@ -56,7 +56,7 @@ class Image_Gathering(forms.Form):
                 'Country',
             ),
             ButtonHolder(
-                Submit('Submit', 'Submit Data', css_class='button white')
+                Submit('Submit', 'Scrape Data', css_class='button white')
             )
         )
 

@@ -4,7 +4,7 @@
 {%  load crispy_forms_tags  %}
 
 {% block title %}
-    {% include 'navbar.html' with PageName='🔎 Image Gathering' %}
+    {% include 'navbar.html' with PageName='Image Gathering 🔎 ' %}
     
 {% endblock title %}
 
@@ -13,7 +13,66 @@
 <script>
     $(document).ready(function(){
         $("#CHANGETHIS").modal('show');
+        document.getElementById("id_choice_platform_1").checked = true;
+
+        /* Reddit Trigger */
+        document.getElementById("id_choice_platform_1").addEventListener("change", function() {
+          var reddit_input = document.getElementById("id_choice_platform_1").checked;
+          console.log(reddit_input);
+          if (reddit_input == true) {
+            console.log("Reddit radio clicked.");
+            document.getElementById("div_id_subReddit").style.display = "block";
+            document.getElementById("div_id_access_token").style.display = "none";
+            document.getElementById("div_id_board").style.display = "none";
+            document.getElementById("div_id_Country").style.display = "none";
+          }
+      });
+
+        /* Facebook Trigger */
+        document.getElementById("id_choice_platform_2").addEventListener("change", function() {
+          var facebook_input = document.getElementById("id_choice_platform_2").checked;
+          console.log(facebook_input);
+          if (facebook_input == true) {
+            console.log("Facebook radio clicked.");
+            document.getElementById("div_id_access_token").style.display = "block";
+            document.getElementById("div_id_subReddit").style.display = "none";
+            document.getElementById("div_id_board").style.display = "none";
+            document.getElementById("div_id_Country").style.display = "none";
+          }
+
+      });
+
+        /* Twitter Trigger */
+        document.getElementById("id_choice_platform_3").addEventListener("change", function() {
+          var twitter_input = document.getElementById("id_choice_platform_3").checked;
+          console.log(twitter_input);
+          if (twitter_input == true) {
+            console.log("Twitter radio clicked.");
+            document.getElementById("div_id_access_token").style.display = "none";
+            document.getElementById("div_id_subReddit").style.display = "none";
+            document.getElementById("div_id_board").style.display = "none";
+            document.getElementById("div_id_Country").style.display = "none";
+          }
+
+      });
+
+        /* 4Chan Trigger */
+        document.getElementById("id_choice_platform_4").addEventListener("change", function() {
+          var fourchan_input = document.getElementById("id_choice_platform_4").checked;
+          console.log(fourchan_input);
+          if (fourchan_input == true) {
+            console.log("4Chan radio clicked.");
+            document.getElementById("div_id_access_token").style.display = "none";
+            document.getElementById("div_id_subReddit").style.display = "none";
+            document.getElementById("div_id_board").style.display = "block";
+            document.getElementById("div_id_Country").style.display = "block";
+          }
+
+      });
+
     });
+
+
   </script>
   <div class="container" id="gathering" style="margin-top:15%;">
     <div class="text-left float-left pull-left">
@@ -44,6 +103,7 @@
             </div>
           </div>
         </div>
+
       {% endfor %}
 
 
