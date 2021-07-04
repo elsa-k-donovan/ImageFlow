@@ -116,6 +116,8 @@
 
     <script src="{% static 'celery_progress/celery_progress.js' %}"></script>
     <script> 
+
+    document.getElementById("menu_analysis").style.display = "none";
     // vanilla JS version
       document.addEventListener("DOMContentLoaded", function () {
         var progressUrl = "{% url 'celery_progress:task_status' task_id %}";

@@ -1,14 +1,20 @@
+/* Menu Displays*/
+#menu_code {
+  display: block;
+}
 
-    /*
- * Made by Erik Terwan
- * 24th of November 2015
- * MIT License
- *
- *
- * If you are thinking of using this in
- * production code, beware of the browser
- * prefixes.
- */
+#menu_gather{
+  display: block;
+}
+
+#menu_analysis{
+  display: block;
+}
+
+#menu_visual {
+  display: block;
+}
+ 
 
  body
  {
@@ -66,6 +72,7 @@
    -webkit-touch-callout: none;
  }
  
+
  /*
   * Just a quick hamburger
   */
