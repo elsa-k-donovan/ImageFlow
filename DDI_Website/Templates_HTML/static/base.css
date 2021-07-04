@@ -61,32 +61,6 @@ label {
     margin: 0px;
 }
 
-/*Radio Button to show divs */
-#id_choice_platform_2:checked ~ #div_id_access_token
-{
-  display:contents;
-  background-color: green;
-}
-
-
-
-input#id_choice_platform_2:checked + div #div_id_access_token {
-  display: block;
-}
-
-input[type="radio"]#id_choice_platform_2:checked + input#id_choice_platform_2  {
-  color: green;
-}
-
-
-#id_choice_platform_1:checked ~ #div_id_subReddit
-{
-  visibility: visible;
-  background-color: green;
-}
-
-
-
 
 #gathering {
     margin: 0 auto;

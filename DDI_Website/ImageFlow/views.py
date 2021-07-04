@@ -3,6 +3,7 @@ from .forms import Image_Gathering, Image_Analysis
 from .tasks import ImageGathering as tasks_ImageGathering
 from .tasks import ImageAnalysis as tasks_ImageAnalysis
 from .tasks import ImageVisualization as tasks_ImageVisualization
+# from .tasks import CodeOfConduct as tasks_CodeofConduct
 
 from Home.models import UserExtensionModel
 from django_celery_results.models import TaskResult
@@ -162,6 +163,7 @@ def ImageVisualization(request):
     return render(request, homeHTML , context) 
 
 
+
 def visualization_json(request):
     # make it return the appropriate one by putting it in this url!
     homeHTML = 'ImageFlow/viz_cleaned_data.json'
@@ -176,3 +178,17 @@ def visualization_json(request):
     return render(request, homeHTML , context) 
 
 
+def CodeofConduct(request):
+    homeHTML = 'ImageFlow/CodeofConduct.html'
+
+    ## run  task to make json! 
+    # task = tasks_ImageVisualization.delay()
+    #task = tasks_CodeofConduct()
+
+
+    ## task is done lets load page! 
+    context = {
+        'nothingggg': "",
+       }
+
+    return render(request, homeHTML , context)  

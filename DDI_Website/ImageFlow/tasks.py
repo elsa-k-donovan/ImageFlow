@@ -266,3 +266,8 @@ def ImageVisualization(self):
 
     # finally lets return so that the html page can load
     return True
+
+
+@shared_task(bind = True , name = "CodeofConduct")
+def CodeofConduct(self):
+    return True

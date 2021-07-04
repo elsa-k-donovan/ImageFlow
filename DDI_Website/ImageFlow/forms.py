@@ -102,3 +102,8 @@ class Image_Visualization(forms.Form):
      
      def __init__(self, *args, **kwargs):
         pass
+
+class CodeofConduct(forms.Form): 
+     
+     def __init__(self, *args, **kwargs):
+        pass

@@ -1,0 +1,50 @@
+
+{% extends "ImageFlow/base.html" %}
+
+{%  load static  %}
+
+{%  load crispy_forms_tags  %}
+
+{% block title %}
+  {% include 'navbar.html' with PageName='Code of Conduct 📋' %}
+  <!-- <link href="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css" rel="stylesheet"> -->
+
+<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"/> -->
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
+  
+{% endblock title %}
+
+{% block input %}  
+
+<div>ImageFlow is designed to collect a lot of images and data about images. We expect all users to be mindful of its potential and careful about its use. The document here explains our expectations and conditions of access. We expect all researchers to act ethically with ImageFlow. We encourage users to review and interpret the AoIR’s Internet Research Ethics 3.0 for their projects.
+
+ImageFlow was designed with privacy in mind. We expect all projects to:
+ Respect user privacy. ImageFlow analyzes images, especially memes, which we view as objects of collective expression. We ask you to minimize the collection of personal information and be careful tracking images of people.
+Do not collect non-consensually shared images. Avoid communities sharing non-consensual images (e.g. revenge porn, deepfakes) and delete any images that may be accidentally collected. 
+Do not amplify hatred and violence. Data collected is private by default. We respect that researchers may collect and study harmful and hateful topics online but we expect that users will respect strategic silence when releasing data collected from this tool.
+Minimize data collection where possible and delete projects when complete. If you don’t need it, delete it.
+Minimize the environmental footprint of your research. Hashing is less intensive than other forms of computer vision, but still burns processor time. Design your projects to minimize undue or wasteful processor time.
+Care about the communities you study and respect their fundamental human, privacy and data rights. 
+
+These principles may evolve as does our understanding of the potential of ImageFlow and its uses. 
+
+In addition to these guiding principles, confirm that:
+You will not use ImageFlow to violate the terms and conditions of any agreements related to your API Keys. We are not responsible for ensuring ImageFlow complies with your API access contracts, agreements or other regulations. 
+You have ethics approval or exemption to undertake your research. We are not responsible for monitoring your ethics compliance.
+You will not misuse the tool or the resources provided with the access to Image Flow.
+
+As a general rule, we are academics not lawyers so please understand that this is not a legal document. By using this tool, you understand that:
+We offer no warranty to the software or long-term security for the data. Our project is experimental and under development. Appreciate bugs, the problems they expose, and help us fix them.
+We reserve the right to delete your project if you violate these rules. 
+We might accidentally delete your data so back it up. Servers crash. Daemons bedevil. We do our best to respect the creatures of the Internet, but expect things to break. 
+
+By agreeing to this tool, you confirm you have read and abide by these rules.</div>
+
+{% endblock input %}
