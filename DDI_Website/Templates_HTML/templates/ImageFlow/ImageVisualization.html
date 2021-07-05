@@ -243,22 +243,10 @@
         alert("The URL of this page is: " + window.location.href);
     }
 
-  // fetch("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json")
-    // .then(res => res.text())
-    // .then(text => alert(text));
-
-  fetch('http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json')
-  .then(res => res.json())
-  .then((out) => {
-      alert('Output: ', out);
-  }).catch(err => console.error(err));
 
 // add path the visualization folder! 
 // CHANGE PATH WHEN MODE TO DIFFERENT SERVER
   d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", function (error, data) {
-    if(error) throw error;
-    alert(data);
-
     // Get Keys of the json object
     // Itterate through each Cluster
     var xDomainMax = d3.max(Object.keys(data.filename), function (d) {
@@ -627,9 +615,6 @@
 
     // And I initialize it at the beginning
     updateFilter()
-
-    alert(data);
-
 
   });
 

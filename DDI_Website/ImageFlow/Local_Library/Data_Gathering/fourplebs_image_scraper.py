@@ -148,8 +148,8 @@ def scrape_4chan(start, end, groups, country_code):
 
             current_page += 1
 
-            if current_page == 10:
-                current_page = None   
+            # if current_page == 10:
+            #     current_page = None   
 
     # Output is Pandas Dataframe
     df = pd.DataFrame(output_df)
