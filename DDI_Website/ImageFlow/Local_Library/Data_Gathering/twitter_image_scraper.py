@@ -7,7 +7,7 @@ import os
 import PIL
 from Website_Settings.file_paths import filepaths
 
-saveDirectory = filepaths.file_server_path + "ImageFlow/twitter/"
+saveDirectory = filepaths.file_server_path + "ImageFlow/img/twitter/"
 
 def download_image(url):
     print("Started download")

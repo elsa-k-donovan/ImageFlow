@@ -17,7 +17,9 @@ from .models import ImageSummary, TaskSummary, PHashSummary, ClusterSummary
 import pandas as pd
 import PIL
 
-data_dir = "/Users/katyadonovan/PycharmProjects/ImageFlow/File_Server/ImageFlow/img/reddit"
+from Website_Settings.file_paths import filepaths
+
+data_dir = filepaths.file_server_path + "ImageFlow/img/"
 
 @shared_task(bind = True , name = "ImageGathering")
 def ImageGathering(self, startDate , endDate, platform, subReddit, board, Country, fb_access_tk):
@@ -186,7 +188,7 @@ def ImageAnalysis(self, task_list, identical):
     print("starting Clustering")
     clus = clustering()
     clustering_results = clus.cluster(image_dict, pairwise_results)
-    # print(clustering_results)
+    print(clustering_results)
     print("Finished Clustering!")
     print(len(clustering_results))
 
@@ -194,7 +196,7 @@ def ImageAnalysis(self, task_list, identical):
     for cluster in clustering_results:
         for image in cluster['images']:
             if cluster["cluster_no"] == -1:
-                cluster_row = ClusterSummary(clusterNumber = cluster["cluster_no"], image_id = image, medroid_image_id = "", task_id = task_list)
+                cluster_row = ClusterSummary(clusterNumber = cluster["cluster_no"], image_id = image, medroid_image_id = -1, task_id = task_list)
             else:
                 cluster_row = ClusterSummary(clusterNumber = cluster["cluster_no"], image_id = image, medroid_image_id = cluster["medroid_path"], task_id = task_list)
 
@@ -233,8 +235,8 @@ def ImageVisualization(self):
 
     latest_Task_row = ClusterSummary.objects.order_by('-created_date')[0].task_id
     if not latest_Task_row == "":
-        sql_to_run = sql_to_run + 'WHERE ics.task_id = "' + latest_Task_row + '"'
-
+        sql_to_run = sql_to_run + "WHERE ics.task_id = '" + latest_Task_row.replace("'", "*").replace("*", "''") + "'"
+    
     cluster_rows = ClusterSummary.objects.raw(sql_to_run)
 
     reporting_df = pd.DataFrame(columns = ['cluster', 'imageURL','FileName', 'SocialMedia', 'group', 'country', 'UserName', 'TimeStamp', 'datetime', 'Dimensions']) 
@@ -248,7 +250,11 @@ def ImageVisualization(self):
 
         # lets get the dimensions of the image!
         img_dim = ""
-        with PIL.Image.open(file_path) as image:
+        sm = row.SocialMedia
+        if row.SocialMedia == "4Chan":
+            sm = "fourchan"            
+
+        with PIL.Image.open(data_dir + sm + "/" + file_path) as image:
             width, height = image.size
             img_dim = str(width) + " " + str(height)
 
@@ -256,8 +262,6 @@ def ImageVisualization(self):
         reporting_df.loc[reporting_df_i] = [row.cluster, row.imageURL, row.FileName, row.SocialMedia, row.group, row.country, row.UserName, row.TimeStamp, row.datetime, img_dim]
         reporting_df_i = reporting_df_i + 1
     
-    print(reporting_df)
-
     # lets give the panadas dataframe to df2json
     # TODO: move this into the image analysis so when visualizing it will be faster!
     df2json(reporting_df)

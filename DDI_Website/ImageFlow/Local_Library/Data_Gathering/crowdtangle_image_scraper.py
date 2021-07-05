@@ -7,7 +7,7 @@ import pandas as pd
 import PIL
 from Website_Settings.file_paths import filepaths
 
-saveDirectory = filepaths.file_server_path + "ImageFlow/facebook/"
+saveDirectory = filepaths.file_server_path + "ImageFlow/img/facebook/"
 
 
 # Restrictions:

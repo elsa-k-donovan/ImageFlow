@@ -10,7 +10,7 @@ from tqdm import tqdm
 import PIL
 from Website_Settings.file_paths import filepaths
 
-saveDirectory = filepaths.file_server_path + "ImageFlow/fourchan/"
+saveDirectory = filepaths.file_server_path + "ImageFlow/img/fourchan/"
 
 def download_image(url):
     print("Started download")
@@ -30,7 +30,7 @@ def download_image(url):
     progress = tqdm(response.iter_content(1024), f"Downloading {file_name}", total=file_size, unit="B",
                     unit_scale=True, unit_divisor=1024)
 
-    with open(saveDirectory + file_name, "wb") as f:
+    with open(saveDirectory + file_name, "wb+") as f:
         for data in progress.iterable:
             # write data read to the file
             f.write(data)
@@ -147,6 +147,9 @@ def scrape_4chan(start, end, groups, country_code):
                     print("Could not retrieve info.")
 
             current_page += 1
+
+            if current_page == 10:
+                current_page = None   
 
     # Output is Pandas Dataframe
     df = pd.DataFrame(output_df)
