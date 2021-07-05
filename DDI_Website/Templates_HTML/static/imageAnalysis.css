@@ -1,0 +1,54 @@
+body {
+    background-color: lightgrey;
+}
+
+.control-group {
+
+    margin-bottom: 20px;
+}
+
+form {
+    border-radius: 25px;
+    filter: drop-shadow(0 0 0.75rem grey);
+    background-color: white; 
+    padding: 2%;
+}
+
+nav {
+    background-color: white;
+}
+
+.textinput {
+    width: 100%;
+}
+
+.requiredField {
+    padding-bottom: 0px;
+}
+
+#id_startDate {
+    width: 30%;
+}
+
+#id_endDate {
+    width: 30%;
+}
+
+label {
+    margin: 0px;
+}
+
+body {
+    
+}
+
+.container {
+    margin: 0 auto;
+    padding-left: 20%;
+    padding-right: 20%;
+
+}
+
+html {
+    background-color: lightgrey;
+}

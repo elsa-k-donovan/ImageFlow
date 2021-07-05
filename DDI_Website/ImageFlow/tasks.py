@@ -22,7 +22,7 @@ from Website_Settings.file_paths import filepaths
 data_dir = filepaths.file_server_path + "ImageFlow/img/"
 
 @shared_task(bind = True , name = "ImageGathering")
-def ImageGathering(self, startDate , endDate, platform, subReddit, board, Country, fb_access_tk):
+def ImageGathering(self, startDate , endDate, platform, subReddit, board, Country, fb_access_tk, access_key, access_secret_key, api_key, api_secret_key, hashtags):
     """
     Returns a dataframe with the downloaded image meta data for storing!
 
@@ -45,10 +45,12 @@ def ImageGathering(self, startDate , endDate, platform, subReddit, board, Countr
     if "Facebook" in platform:
         # lets process Facebook
         fac_df = scrape_facebook(fb_access_tk, startDate, endDate)
-        outputs.append(red_df)
+        outputs.append(fac_df)
 
     if "Twitter" in platform:
         # lets process Twitter
+        twit_df = scrape_twitter(access_key, access_secret_key, api_key, api_secret_key, startDate, endDate, hashtags)
+        outputs.append(twit_df)
         pass
 
     if "4Chan" in platform:
@@ -267,4 +269,9 @@ def ImageVisualization(self):
     df2json(reporting_df)
 
     # finally lets return so that the html page can load
+    return True
+
+
+@shared_task(bind = True , name = "CodeofConduct")
+def CodeofConduct(self):
     return True

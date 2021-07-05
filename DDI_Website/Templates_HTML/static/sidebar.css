@@ -1,14 +1,20 @@
+/* Menu Displays*/
+#menu_code {
+  display: block;
+}
 
-    /*
- * Made by Erik Terwan
- * 24th of November 2015
- * MIT License
- *
- *
- * If you are thinking of using this in
- * production code, beware of the browser
- * prefixes.
- */
+#menu_gather{
+  display: block;
+}
+
+#menu_analysis{
+  display: block;
+}
+
+#menu_visual {
+  display: block;
+}
+ 
 
  body
  {
@@ -16,7 +22,7 @@
    padding: 0;
    
    /* make it look decent enough */
-   background: white;
+   background: lightgrey;
    color: black;
    font-family: "Avenir Next", "Avenir", sans-serif;
  }
@@ -66,6 +72,7 @@
    -webkit-touch-callout: none;
  }
  
+
  /*
   * Just a quick hamburger
   */
@@ -142,7 +149,7 @@
    padding: 50px;
    padding-top: 125px;
    
-   background: #ededed;
+   background: #faf7e6;
    list-style-type: none;
    -webkit-font-smoothing: antialiased;
    /* to stop flickering of text in safari */
@@ -176,7 +183,7 @@
 
 
 /* Style the sidenav links and the dropdown button */
-.dropdown-btn {
+/* .dropdown-btn {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 20px;
@@ -188,7 +195,7 @@
   text-align: left;
   cursor: pointer;
   outline: none;
-}
+} */
 
 /* On mouse-over */
 
@@ -206,12 +213,12 @@
 }
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
-.dropdown-container {
+/* .dropdown-container {
   display: none;
   background-color: #ededed;
   padding-left: 8px;
   white-space: pre-line;
-}
+} */
 
 /* Optional: Style the caret down icon */
 .fa-caret-down {
@@ -223,4 +230,48 @@
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+/*****DROPDOWN BUTTON********/
+/* Style The Dropdown Button */
+.dropbtn {
+  background-color:white;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  z-index: 50;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 210px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 55;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
 }

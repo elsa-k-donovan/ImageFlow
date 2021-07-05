@@ -3,6 +3,7 @@ from .forms import Image_Gathering, Image_Analysis
 from .tasks import ImageGathering as tasks_ImageGathering
 from .tasks import ImageAnalysis as tasks_ImageAnalysis
 from .tasks import ImageVisualization as tasks_ImageVisualization
+# from .tasks import CodeOfConduct as tasks_CodeofConduct
 
 from Home.models import UserExtensionModel
 from django_celery_results.models import TaskResult
@@ -30,6 +31,11 @@ def ImageGathering(request):
         board = submited_data["board"]
         Country = submited_data["Country"]
         fb_access_tk = submited_data["access_token"]
+        access_key = submited_data["access_key"]
+        access_secret_key = submited_data["access_secret_key"]
+        api_key = submited_data["api_key"]
+        api_secret_key = submited_data["api_secret_key"]
+        hashtags = submited_data["hashtags"]
 
         ### TESTING
         print("startDate = " + startDate)
@@ -39,6 +45,7 @@ def ImageGathering(request):
         print("board = " + board)
         print("Country = " + Country)
         print("fb_access_tk = " + fb_access_tk)
+        print("access_key = " + access_key)
 
         if ',' in subReddit:
             subReddit = subReddit.split(',')
@@ -51,7 +58,7 @@ def ImageGathering(request):
             board = [board]
         
         #tasks_ImageGathering(startDate, endDate, platform, subReddit, board, Country, fb_access_tk)
-        task = tasks_ImageGathering.delay(startDate , endDate, platform, subReddit, board, Country, fb_access_tk)
+        task = tasks_ImageGathering.delay(startDate , endDate, platform, subReddit, board, Country, fb_access_tk, access_key, access_secret_key, api_key, api_secret_key, hashtags)
         # task_id = task.task_id
         numTasks = TaskResult.objects.all().count() + 1
         currentUserModelExt.update(arrayTasksCompleted=currentUserModelExt[0].arrayTasksCompleted + [numTasks])
@@ -156,6 +163,7 @@ def ImageVisualization(request):
     return render(request, homeHTML , context) 
 
 
+
 def visualization_json(request):
     # make it return the appropriate one by putting it in this url!
     homeHTML = 'ImageFlow/viz_cleaned_data.json'
@@ -170,3 +178,17 @@ def visualization_json(request):
     return render(request, homeHTML , context) 
 
 
+def CodeofConduct(request):
+    homeHTML = 'ImageFlow/CodeofConduct.html'
+
+    ## run  task to make json! 
+    # task = tasks_ImageVisualization.delay()
+    #task = tasks_CodeofConduct()
+
+
+    ## task is done lets load page! 
+    context = {
+        'nothingggg': "",
+       }
+
+    return render(request, homeHTML , context)  

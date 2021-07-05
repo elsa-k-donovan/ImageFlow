@@ -15,9 +15,10 @@ class Image_Gathering(forms.Form):
     choice_platform = forms.MultipleChoiceField(
         label='Please choose platform:',
         required=True,
-        widget=forms.CheckboxSelectMultiple,
-        choices= CHOICES_PLATFORM ,
+        widget=forms.RadioSelect,
+        choices= CHOICES_PLATFORM,
     )
+
     startDate = forms.CharField(label = 'Start Date',max_length=10, required=True, widget=forms.TextInput(attrs={'placeholder': 'MM/DD/YYYY'}))
     endDate = forms.CharField(label = 'End Date',max_length=10, required=True, widget=forms.TextInput(attrs={'placeholder' : 'MM/DD/YYYY'}))
     
@@ -38,6 +39,11 @@ class Image_Gathering(forms.Form):
 
     # # Twitter Fields
     # hashTag = forms.CharField(label = 'Input',max_length=500, required=True, widget=forms.HiddenInput())
+    access_key = forms.CharField(label = 'Twitter API Access Key', max_length=500, required=False, widget=forms.TextInput(attrs={'size':'80'}))
+    access_secret_key = forms.CharField(label = 'Twitter API Secret Access Key', max_length=500, required=False, widget=forms.TextInput(attrs={'size':'80'}))
+    api_key = forms.CharField(label = 'Twitter API Key', max_length=500, required=False, widget=forms.TextInput(attrs={'size':'80'}))
+    api_secret_key = forms.CharField(label = 'Twitter API Secret Key', max_length=500, required=False, widget=forms.TextInput(attrs={'size':'80'}))
+    hashtags = forms.CharField(label = 'Hashtags', max_length=500, required=False, widget=forms.TextInput(attrs={'size':'80'}))
 
 
     def __init__(self, *args, **kwargs):
@@ -52,11 +58,16 @@ class Image_Gathering(forms.Form):
                 'choice_platform',
                 'subReddit',
                 'access_token',
+                'access_key',
+                'access_secret_key',
+                'api_key',
+                'api_secret_key',
+                'hashtags',
                 'board',
                 'Country',
             ),
             ButtonHolder(
-                Submit('Submit', 'Submit Data', css_class='button white')
+                Submit('Submit', 'Scrape Data', css_class='button white')
             )
         )
 
@@ -88,6 +99,11 @@ class Image_Analysis(forms.Form):
 
 
 class Image_Visualization(forms.Form): 
+     
+     def __init__(self, *args, **kwargs):
+        pass
+
+class CodeofConduct(forms.Form): 
      
      def __init__(self, *args, **kwargs):
         pass
