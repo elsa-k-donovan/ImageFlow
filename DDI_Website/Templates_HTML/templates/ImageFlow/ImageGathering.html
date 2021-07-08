@@ -23,15 +23,9 @@
           if (reddit_input == true) {
             console.log("Reddit radio clicked.");
             document.getElementById("div_id_subReddit").style.display = "block";
-            document.getElementById("div_id_access_token").style.display = "none";
-            document.getElementById("div_id_board").style.display = "none";
-            document.getElementById("div_id_Country").style.display = "none";
-            document.getElementById("div_id_access_key").style.display = "none";
-            document.getElementById("div_id_access_secret_key").style.display = "none";
-            document.getElementById("div_id_api_key").style.display = "none";
-            document.getElementById("div_id_api_secret_key").style.display = "none";
-            document.getElementById("div_id_hashtags").style.display = "none";
-            
+          }
+          else {
+            document.getElementById("div_id_subReddit").style.display = "none";
           }
       });
 
@@ -42,14 +36,9 @@
           if (facebook_input == true) {
             console.log("Facebook radio clicked.");
             document.getElementById("div_id_access_token").style.display = "block";
-            document.getElementById("div_id_subReddit").style.display = "none";
-            document.getElementById("div_id_board").style.display = "none";
-            document.getElementById("div_id_Country").style.display = "none";
-            document.getElementById("div_id_access_key").style.display = "none";
-            document.getElementById("div_id_access_secret_key").style.display = "none";
-            document.getElementById("div_id_api_key").style.display = "none";
-            document.getElementById("div_id_api_secret_key").style.display = "none";
-            document.getElementById("div_id_hashtags").style.display = "none";
+          }
+          else {
+            document.getElementById("div_id_access_token").style.display = "none";
           }
 
       });
@@ -60,16 +49,18 @@
           console.log(twitter_input);
           if (twitter_input == true) {
             console.log("Twitter radio clicked.");
-            document.getElementById("div_id_access_token").style.display = "none";
-            document.getElementById("div_id_subReddit").style.display = "none";
-            document.getElementById("div_id_board").style.display = "none";
-            document.getElementById("div_id_Country").style.display = "none";
             document.getElementById("div_id_access_key").style.display = "block";
             document.getElementById("div_id_access_secret_key").style.display = "block";
             document.getElementById("div_id_api_key").style.display = "block";
             document.getElementById("div_id_api_secret_key").style.display = "block";
-            document.getElementById("div_id_hashtags").style.display = "block";
-            
+            document.getElementById("div_id_hashtags").style.display = "block";    
+          }
+          else {
+            document.getElementById("div_id_access_key").style.display = "none";
+            document.getElementById("div_id_access_secret_key").style.display = "none";
+            document.getElementById("div_id_api_key").style.display = "none";
+            document.getElementById("div_id_api_secret_key").style.display = "none";
+            document.getElementById("div_id_hashtags").style.display = "none";    
           }
 
       });
@@ -80,15 +71,12 @@
           console.log(fourchan_input);
           if (fourchan_input == true) {
             console.log("4Chan radio clicked.");
-            document.getElementById("div_id_access_token").style.display = "none";
-            document.getElementById("div_id_subReddit").style.display = "none";
             document.getElementById("div_id_board").style.display = "block";
             document.getElementById("div_id_Country").style.display = "block";
-            document.getElementById("div_id_access_key").style.display = "none";
-            document.getElementById("div_id_access_secret_key").style.display = "none";
-            document.getElementById("div_id_api_key").style.display = "none";
-            document.getElementById("div_id_api_secret_key").style.display = "none";
-            document.getElementById("div_id_hashtags").style.display = "none";
+          }
+          else {
+            document.getElementById("div_id_board").style.display = "none";
+            document.getElementById("div_id_Country").style.display = "none";
           }
 
       });
