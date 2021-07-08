@@ -138,7 +138,7 @@ def scrape_reddit(sub_list, startDate, endDate):
 
                     # redditScore and NumComments are added as strings not int
                     try:
-                        row = {"file_name": file_name, "imageURL": meme.url, "group": subreddit, "username": meme.author, "timeStamp": timestamp, "country": "", "numComments": numCmts, "score": redditScore, "platform": "Reddit", "abs_file_path": saveDirectory + file_name, "dimensions": dimension}
+                        row = {"file_name": file_name, "imageURL": meme.url, "group": subreddit, "username": meme.author, "timestamp": timestamp, "country": "", "numComments": numCmts, "score": redditScore, "platform": "Reddit", "abs_file_path": saveDirectory + file_name, "dimensions": dimension}
 
                         output_df.append(row)
 

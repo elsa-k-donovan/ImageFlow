@@ -102,6 +102,7 @@ def ImageGathering(self, startDate , endDate, platform, subReddit, board, Countr
             num_dups = num_dups + 1
         except ImageSummary.DoesNotExist:
             print("ImageSummary does NOT EXIST!")
+            print(row["timestamp"])
             # if it doesnt then lets make it! 
             image = ImageSummary(task_id = task_id, file_name = row["file_name"], imageURL = row["imageURL"], 
             group = row["group"], username = row["username"], timeStamp = row["timestamp"], country = row["country"], numComments = row["numComments"],
@@ -114,13 +115,10 @@ def ImageGathering(self, startDate , endDate, platform, subReddit, board, Countr
 
         # now lets insert into our task summary dataframe!
         #TODO: ERROR: local variable 'image' referenced before assignment
-        try:
-            task_sum.loc[task_sum_i] = [image.id, task_id]
-            print("Image.id" + str(image.id))
-            task_sum_i = task_sum_i + 1
-        except ex as Exception1323:
-            print("local variable image error")
-        
+        task_sum.loc[task_sum_i] = [image.id, task_id]
+        print("Image.id" + str(image.id))
+        task_sum_i = task_sum_i + 1
+    
     # now lets insert into the task_summ table
     for row_i, row in task_sum.iterrows():
         ts = TaskSummary(image_id = row["image_id"], task_id = row["task_id"])
