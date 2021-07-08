@@ -1,11 +1,7 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
 
 
-{%  load static  %}
-
-{%  load crispy_forms_tags  %}
-
-
-{% block input %}  
 <style>
   /* The container */
   .containerx {
@@ -162,6 +158,16 @@
   </div>
 
 </div>
+
+
+
+
+
+
+
+
+
+
 
 <script>
 
@@ -320,32 +326,37 @@
 
   var formatDate = d3.timeFormat("%d %B %Y")
 
-  function getURL() {
-        alert("The URL of this page is: " + window.location.href);
-    }
-
-// add path the visualization folder! 
-// CHANGE PATH WHEN MODE TO DIFFERENT SERVER
-  d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", function (error, data) {
+  //d3.json("jonathan_similar_imageset_dimensions.json", function (data) {
+  d3.json("http://127.0.0.1:8001/ImageFlow/reporting/jonathan_similar_imageset_dimensions.json", function (error, data) {
 
     // Get Keys of the json object
     // Itterate through each Cluster
     var xDomainMax = d3.max(Object.keys(data.filename), function (d) {
+      console.log("XDomainMax: " + format(data.datetime[d][data.datetime[d].length - 1]));
       return format(data.datetime[d][data.datetime[d].length - 1])
     });
 
     var xDomainMin = d3.min(Object.keys(data.filename), function (d) {
+      console.log("XDomainMin: " + format(data.datetime[d][0]));
       return format(data.datetime[d][0])
     });
 
     var xDomain = [xDomainMin, xDomainMax]
+    console.log("X Domain: " + xDomain);
 
-    var yDomain = d3.extent(Object.keys(data.filename), function (d) { return data.datetime[d].length - 1; });
+    console.log("About to calculate yDomain...")
+
+    var yDomain = d3.extent(Object.keys(data.filename), function (d) {
+      console.log("yDomain: " + data.datetime[d].length - 1); 
+      return data.datetime[d].length - 1; 
+    });
 
     
     var x = d3.scaleTime()
       .domain(xDomain)
       .range([20, width]);
+    
+    //console.log("var x: " + x);
 
     
     var y = d3.scaleLog()
@@ -353,7 +364,9 @@
       .range([height, 0])
       .base(2)
 
-    // Add X axis Y axis
+    //console.log("var y: " + y);
+
+// Add X axis Y axis
     let xAxis = d3.axisBottom(x).ticks(4).tickPadding(10),
       yAxis = d3.axisLeft(y);
 
@@ -384,6 +397,9 @@
     focus.append('line')
       .attr('id', 'focusLineY')
       .attr('class', 'focusLine')
+
+
+ 
 
     // Create the scatter variable: where both the circles and the brush take place
     var scatter = svg.append('g')
@@ -486,7 +502,12 @@
       })
 
       .attr('id', "nodes")
-      .attr("x", function (d) { return (x(format(data.datetime[d][0]))) })
+      .attr("x", function (d) { 
+        console.log(data.datetime[d][0]);
+        console.log(format(data.datetime[d][0]));
+        console.log("Single X: " + x);
+        console.log("X: " + x(format(data.datetime[d][0])));
+        return (x(format(data.datetime[d][0]))) })
       .attr("y", function (d) { return (y(format(data.datetime[d].length))) })
       .attr('width', function (d) { return data.dimensions[d][0].split(" ")[0] / 30 })
       .attr('height', function (d) { return data.dimensions[d][1].split(" ")[1] / 30 })
@@ -502,6 +523,12 @@
         ,
         
         Object.keys(data.filename).length
+        
+  
+        
+        
+        
+        
         
         )})
       .style("opacity", 0.8)
@@ -574,9 +601,8 @@
 
     function mouseover(d) {
       //Swaps out image src with link from table
-      var filename =  data.filename[d][0].replace(/^.*[\\\/]/, '')
       img
-        .attr("src", function (c) { return "http://127.0.0.1:8001/ImageFlow/img/" + data.socialmedia[d][0] + "/" + filename })
+        .attr("src", function (c) { return "img/" + data.filename[d][0] })
         .style("opacity", 1)
 
       infoC
@@ -724,6 +750,9 @@
   update(data2)
 
 
+
+
+
 function genColor(seed){
 
   //console.log(seed)
@@ -821,11 +850,24 @@ function getRandomColor(color) {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 
 <script>
 
 </script>
-
-{% endblock input %}

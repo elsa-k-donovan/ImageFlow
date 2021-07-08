@@ -252,7 +252,11 @@ def ImageVisualization(self):
         img_dim = ""
         sm = row.SocialMedia
         if row.SocialMedia == "4Chan":
-            sm = "fourchan"            
+            sm = "fourchan"
+        if row.cluster == -1:
+            print("This is a negative cluster.")
+            row.cluster = 1
+
 
         with PIL.Image.open(data_dir + sm + "/" + file_path) as image:
             width, height = image.size

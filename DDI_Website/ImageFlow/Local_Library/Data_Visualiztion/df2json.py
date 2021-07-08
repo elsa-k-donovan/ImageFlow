@@ -40,13 +40,20 @@ def df2json(df):
 
         output.append(json_row)
 
-    with open('temp.json', 'w') as f:
-        json.dump(output, f)
+    df = pd.DataFrame(output)
+    output = df.sort_values(by='timestamp')
+
+    output.to_json('temp.json')
+
+    #with open('temp.json', 'w') as f:
+        #json.dump(output, f)
 
     jsonfile = 'temp.json'
 
     output = pd.read_json(jsonfile)
 
     df2 = output.groupby(['cluster']).agg(lambda x: x.tolist())
+
+    #NEEDS TO BE CHRONOLOGICALLY SORTED FROM EARLIEST TO LATEST
 
     df2.to_json(data_dir + 'viz_cleaned_data.json')

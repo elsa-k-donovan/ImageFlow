@@ -1,44 +1,125 @@
-{% extends "ImageFlow/base.html" %}
+
 
 {%  load static  %}
 
 {%  load crispy_forms_tags  %}
 
-{% block title %}
-    {% include 'navbar.html' with PageName='Image Visualization 🎨' %}
-
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
-
-    <!-- Latest compiled and minified CSS -->
-    <!--TODO: Fix this-->
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"> -->
-
-{% endblock title %}
 
 {% block input %}  
+<style>
+  /* The container */
+  .containerx {
+    display: block;
+    position: relative;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+
+    margin: 0px !important;
+    cursor: pointer;
+    font-size: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Hide the browser's default checkbox */
+  .containerx input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+  }
+
+  /* On mouse-over, add a grey background color */
+  .containerx:hover input~.checkmark {
+    background-color: #ccc;
+  }
+
+  /* When the checkbox is checked, add a blue background */
+  .containerx input:checked~.checkmark {
+    background-color: grey;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the checkmark when checked */
+  .containerx input:checked~.checkmark:after {
+    display: block;
+  }
+
+  /* Style the checkmark/indicator */
+  .containerx .checkmark:after {
+    left: 7px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+
+  }
+
+  .focusLine {
+    fill: none;
+    stroke: black;
+    stroke-width: 1px;
+  }
+
+
+  text {
+    font-family: sans-serif;
+    font-size: 10px;
+  }
+
+</style>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js">
+
+</script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+  integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
 <!-- Create a div where the graph will take place -->
 <!-- Button -->
 
-<!-- <div class="jumbotron vertical-center" style="background-color: lightgrey;"></div>  -->
+<div class="jumbotron vertical-center" style="background-color: white;"></div>
 
-<div class="container-fluid" style="width: 100%; margin-top:15%; margin-bottom: 10%;">
-<div id="containerVisualization" style="width:100%; background-color: white;"></div>
-  <div class="col-md-3" style="padding-left: 3%; padding-top:1%;">
-
+<div class="container-fluid">
+  <div class="col-md-3 ">
+    <h1 class="display-1" style="font-size: 50px; padding-bottom: 30px;"> <strong> MEME ANALYZER </strong></h1>
     <ul class="list-group">
-      <li class="h5">Select checkboxes to filter by platform.</li>
-      <li class="h5">Rollover on each meme to display the meme and first appearance on each platform.</li>
-      <li class="h5">Click & drag to zoom into the selection.</li>
-      <li class="h5">Double click to reset view.</li>
+      <li class="h4">Select checkboxes to filter by platform.</li>
+      <li class="h4">Rollover on each meme to display the meme and first appearance on each platform.</li>
+      <li class="h4">Click & drag to zoom into the selection.</li>
+      <li class="h4">Double click to reset view.</li>
     </ul>
 
     <!-- <p class="h4 mx-auto"><strong>Data:</strong> The images from this data set were collected from ___ to ___ on x,y,z,w platforms. In relation to x in y. </p> -->
-    <p class="h5 mx-auto"><strong>Cluster:</strong> Collection of identical images found on social media platforms. </p>
-    <p class="h5 mx-auto" style="padding-top: 50px; font-size: 16px;">Funded by Canadian Heritage Foundation</p>
+    <p class="h4 mx-auto"><strong>Cluster:</strong> Collection of identical images found on social media platforms. </p>
+    <p class="h4 mx-auto" style="padding-top: 50px; font-size: 16px;">Funded by Canadian Heritage Foundation</p>
     <p style=" font-size: 16px;" class="h4 mx-auto">
       <strong>Researchers:</strong>
       Fenwick Mckelvey,
@@ -79,7 +160,7 @@
       <span class="checkmark"></span>
     </label>
   </div>
-</div>
+
 </div>
 
 <script>
@@ -238,58 +319,28 @@
   var format = d3.timeParse("%Q");
 
   var formatDate = d3.timeFormat("%d %B %Y")
-  console.log(formatDate);
 
   function getURL() {
         alert("The URL of this page is: " + window.location.href);
     }
 
-//Date and time based on Server's timezone
-d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", function(location) {
-        console.log(location)
-  });
-
-  var count = 0;
-
 // add path the visualization folder! 
 // CHANGE PATH WHEN MODE TO DIFFERENT SERVER
   d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", function (error, data) {
 
-    console.log("Connected to the json file." + data);
-    
-    // console.log("Cluster is: " + Object.keys).data;
-
     // Get Keys of the json object
     // Itterate through each Cluster
     var xDomainMax = d3.max(Object.keys(data.filename), function (d) {
-      count = count + 1;
-      console.log("Count: " + count);
-      //USING TIMESTAMP INSTEAD OF DATETIME
-      //return format(data.datetime[d][data.datetime[d].length - 1])
-      //console.log(format(data.timestamp[d][data.timestamp[d].length - 1]))
-      //format(data.timestamp[data.timestamp[d].length - 1])
-      console.log("XDomainMax: " +format(data.timestamp[d][data.timestamp[d].length - 1]));
       return format(data.timestamp[d][data.timestamp[d].length - 1])
     });
 
     var xDomainMin = d3.min(Object.keys(data.filename), function (d) {
-      // console.log(data.datetime[d][0])
-      // return format(data.datetime[d][0])
-      console.log("XDomainMin: " + format(data.timestamp[d][0]));
       return format(data.timestamp[d][0])
     });
 
-    //TODO: XDOMAIN NOT GETTING PROPERLY CALCULATED!!
     var xDomain = [xDomainMin, xDomainMax]
-    console.log("XDomain: " + xDomain);
 
-    //TODO: D3.EXTENT not working; changed to min for debugging
-    var yDomain = d3.min(Object.keys(data.filename), function (d) { 
-      //return data.datetime[d].length - 1;
-      console.log("Calculating yDomain")
-      console.log("yDomain: " + data.timestamp[d].length - 1); 
-      return data.timestamp[d].length - 1; 
-    });
+    var yDomain = d3.extent(Object.keys(data.filename), function (d) { return data.timestamp[d].length - 1; });
 
     
     var x = d3.scaleTime()
@@ -391,8 +442,6 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
       .attr("y", height - 15)
       .text("Date");
 
-    console.log(width)
-
     //Scatter plot y axis
     svg.append("g")
       .attr("class", "y axis")
@@ -437,30 +486,10 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
       })
 
       .attr('id', "nodes")
-      .attr("x", function (d) { 
-        // return (x(format(data.datetime[d][0])))
-        console.log(data.timestamp[d][0]);
-        console.log(format(data.timestamp[d][0]));
-        console.log("X: " + x(format(data.timestamp[d][0])));
-        console.log("Single X" + x);
-
-        // console.log(x(format(data.timestamp[d][0])))
-        // console.log("original timestamp for x: " + x(data.timestamp[d][0]))
-        return (x(format(data.timestamp[d][0])));
-      })
-      .attr("y", function (d) { 
-        // return (y(format(data.datetime[d].length))) 
-        console.log(y(format(data.timestamp[d][0])))
-        console.log("original timestamp for y: " + y(data.timestamp[d][0]))
-        return (y(format(data.timestamp[d].length))) 
-      })
-      .attr('width', function (d) { 
-        console.log(data.dimensions[d][0].split(" ")[0])
-        return data.dimensions[d][0].split(" ")[0]
-      })
-      .attr('height', function (d) { 
-        return data.dimensions[d][1].split(" ")[1]
-      })
+      .attr("x", function (d) { return (x(format(data.timestamp[d][0]))) })
+      .attr("y", function (d) { return (y(format(data.timestamp[d].length))) })
+      .attr('width', function (d) { return data.dimensions[d][0].split(" ")[0] / 30 })
+      .attr('height', function (d) { return data.dimensions[d][1].split(" ")[1] / 30 })
       //.style("fill", function (d) { return data.color[d][0] })
       .style("fill", function(d) {
         
@@ -469,13 +498,13 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
         
         return genColor(
         
-        Object.keys(data.filename).indexOf(d),
+        Object.keys(data.filename).indexOf(d)
+        ,
         
         Object.keys(data.filename).length
         
         )})
       .style("opacity", 0.8)
-      .style("z-index", 25)
       .attr('pointer-events', 'all')
       .on("mouseover", function (d) { mouseover(d) })
       .on("mouseleave", function (d) { mouseleave(d) })
@@ -509,14 +538,8 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
       svg.select("#axis--y").transition(t).call(yAxis);
 
       scatter.selectAll('#nodes').transition(t)
-        .attr("x", function (d) { 
-          // return (x(format(data.datetime[d][0]))) 
-          return (x(format(data.timestamp[d][0]))) 
-        })
-        .attr("y", function (d) { 
-          // return (y(format(data.datetime[d].length))) 
-          return (y(format(data.timestamp[d].length))) 
-        })
+        .attr("x", function (d) { return (x(format(data.timestamp[d][0]))) })
+        .attr("y", function (d) { return (y(format(data.timestamp[d].length))) })
     }
 
 
@@ -551,15 +574,10 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
 
     function mouseover(d) {
       //Swaps out image src with link from table
-
-      var filename = data.filename[d][0].replace(/^.*[\\\/]/, '')
+      var filename =  data.filename[d][0].replace(/^.*[\\\/]/, '')
       img
         .attr("src", function (c) { return "http://127.0.0.1:8001/ImageFlow/img/" + data.socialmedia[d][0] + "/" + filename })
         .style("opacity", 1)
-        
-      // img
-      //   .attr("src", function (c) { return "img/" + data.filename[d][0] })
-      //   .style("opacity", 1)
 
       infoC
         .html(d)
@@ -570,7 +588,6 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
 
       infoD
         .html(formatDate(data.timestamp[d][0]))
-        // .html(formatDate(data.datetime[d][0]))
 
       infoNumCluster
         .html(data.filename[d].length)
@@ -583,11 +600,9 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
 
       }
 
-      //Update the bar graph using the tally and unique values
+      //Updadate the bar graph using the tally and unique values
       //Eg. 4chan: 4, reddit: 5
-      console.log("About to update data.color");
-      update(counts, data.color[d][0]);
-      console.log("This is the data.color: " + data.color);
+      update(counts, data.color[d][0])
 
 
       //Draws the first value per platform
@@ -602,8 +617,6 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
             .append('rect')
             .attr('class', "AdditionalPost")
             //.attr('id', "nodes")
-            // .attr("x", x(format(data.datetime[d][index])))
-            // .attr("y", y(format(data.datetime[d].length)))
             .attr("x", x(format(data.timestamp[d][index])))
             .attr("y", y(format(data.timestamp[d].length)))
             .attr('width', data.dimensions[d][0].split(" ")[0] / 30)
@@ -615,16 +628,13 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
             
             ))
             .style("opacity", 0.8)
-            .attr('pointer-events', 'none');          
-        }
+            .attr('pointer-events', 'none')
 
-        
+        }
 
         svg
           .append('text')
           .attr('class', "AdditionalPost")
-          // .attr("x", x(format(data.datetime[d][index])))
-          // .attr("y", y(format(data.datetime[d].length)) + (data.dimensions[d][1].split(" ")[1] / 30) / 2)
           .attr("x", x(format(data.timestamp[d][index])))
           .attr("y", y(format(data.timestamp[d].length)) + (data.dimensions[d][1].split(" ")[1] / 30) / 2)
           //.attr("y", y(format(data.datetime[d].length))+10)
@@ -793,6 +803,9 @@ var p = 1,
 
 
 
+
+
+
 function getRandomColor(color) {
     var p = 1,
         temp,
@@ -812,7 +825,6 @@ function getRandomColor(color) {
 
 
 <script>
-  document.getElementById("menu_visual").style.display = "none";
 
 </script>
 
