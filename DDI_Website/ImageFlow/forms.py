@@ -15,7 +15,7 @@ class Image_Gathering(forms.Form):
     choice_platform = forms.MultipleChoiceField(
         label='Please choose platform:',
         required=True,
-        widget=forms.RadioSelect,
+        widget=forms.CheckboxSelectMultiple,
         choices= CHOICES_PLATFORM,
     )
 
@@ -76,8 +76,8 @@ class Image_Analysis(forms.Form):
     Query from DataBase Form
     """
     
-    Task_ids = forms.CharField(label = 'Task Ids',max_length=500, required=True, widget=forms.TextInput(attrs={'size':'80'}))
-    Identical = forms.BooleanField(label = 'Identical', required=False)
+    Task_ids = forms.CharField(label = 'Copy/Paste Dataset Id',max_length=500, required=True, widget=forms.TextInput(attrs={'size':'80'}))
+    Identical = forms.BooleanField(label = 'Cluster Identically', required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args,**kwargs)
@@ -92,7 +92,7 @@ class Image_Analysis(forms.Form):
                 # 'choice_filetype',
             ),
             ButtonHolder(
-                Submit('Submit','Submit',css_class='button white'),
+                Submit('Submit','Cluster',css_class='button white'),
             ),
             
         )
