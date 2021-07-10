@@ -215,8 +215,6 @@
     .append("g")
 
 
-
-
   // X axis for small bar graph
   var xBar = d3.scaleBand()
     .range([0, 300])
@@ -264,21 +262,22 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
     // Get Keys of the json object
     // Itterate through each Cluster
     var xDomainMax = d3.max(Object.keys(data.filename), function (d) {
-      count = count + 1;
-      console.log("Count: " + count);
+
       //USING TIMESTAMP INSTEAD OF DATETIME
       //return format(data.datetime[d][data.datetime[d].length - 1])
       //console.log(format(data.timestamp[d][data.timestamp[d].length - 1]))
       //format(data.timestamp[data.timestamp[d].length - 1])
-      console.log("XDomainMax: " +format(data.timestamp[d][data.timestamp[d].length - 1]));
-      return format(data.timestamp[d][data.timestamp[d].length - 1])
+      //console.log("XDomainMax: " +format(data.timestamp[d][data.timestamp[d].length - 1]));
+      //return format(data.timestamp[d][data.timestamp[d].length - 1])
+      return d3.timeDay.offset(format(data.timestamp[d][data.timestamp[d].length - 1]),1)
     });
 
     var xDomainMin = d3.min(Object.keys(data.filename), function (d) {
       // console.log(data.datetime[d][0])
       // return format(data.datetime[d][0])
       console.log("XDomainMin: " + format(data.timestamp[d][0]));
-      return format(data.timestamp[d][0])
+      //return format(data.timestamp[d][0])
+      return d3.timeDay.offset(format(data.timestamp[d][0]),-1)
     });
 
     //TODO: XDOMAIN NOT GETTING PROPERLY CALCULATED!!
@@ -304,7 +303,9 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
       return data.timestamp[d].length; 
     });
  
-    var yDomain = [yDomainMin, yDomainMax]
+    var yDomain = [yDomainMin-1, yDomainMax+1]
+
+    console.log("yDomain: :" + yDomain);
 
     
     var x = d3.scaleTime()
@@ -454,20 +455,18 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
 
       .attr('id', "nodes")
       .attr("x", function (d) { 
-        // return (x(format(data.datetime[d][0])))
-        console.log(data.timestamp[d][0]);
-        console.log(format(data.timestamp[d][0]));
+
         console.log("X: " + x(format(data.timestamp[d][0])));
-        console.log("Single X" + x);
 
         // console.log(x(format(data.timestamp[d][0])))
         // console.log("original timestamp for x: " + x(data.timestamp[d][0]))
         return (x(format(data.timestamp[d][0])));
       })
       .attr("y", function (d) { 
-        // return (y(format(data.datetime[d].length))) 
-        console.log(y(format(data.timestamp[d][0])))
-        console.log("original timestamp for y: " + y(data.timestamp[d][0]))
+        //TODO: This should be equal to the number of images in cluster!
+
+        console.log("Y: " + y(format(data.timestamp[d].length)));
+        
         return (y(format(data.timestamp[d].length))) 
       })
       .attr('width', function (d) { 
@@ -482,6 +481,7 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
         }
       })
       .attr('height', function (d) { 
+        console.log(data.dimensions[d][1].split(" ")[1])
         var height_rect = data.dimensions[d][1].split(" ")[1]
         if (height_rect < 250){
           return data.dimensions[d][1].split(" ")[1]
@@ -494,6 +494,8 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
       .attr('max-height', function (d) { 
         return "200"
       })
+
+
       //.style("fill", function (d) { return data.color[d][0] })
       .style("fill", function(d) {
         
@@ -700,8 +702,8 @@ d3.json("http://127.0.0.1:8001/ImageFlow/reporting/viz_cleaned_data.json", funct
             .transition()
             .duration(1000)
             .style("opacity", 0.5)
-            .attr('width', function (d) { return parseInt(data.dimensions[d][0].split(" ")[0]) / 30 })
-            .attr('height', function (d) { return parseInt(data.dimensions[d][1].split(" ")[1]) / 30 })
+            .attr('width', function (d) { return data.dimensions[d][0].split(" ")[0] / 30 })
+            .attr('height', function (d) { return data.dimensions[d][1].split(" ")[1] / 30 })
 
           // Otherwise I hide it
         } else {
