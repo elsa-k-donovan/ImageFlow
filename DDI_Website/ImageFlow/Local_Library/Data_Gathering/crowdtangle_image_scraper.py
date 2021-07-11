@@ -143,4 +143,4 @@ def scrape_facebook(api_token, startDate_old, endDate_old):
     return df
 
 
-# scrape_facebook('GUexChh20anhPIEc8pkTzy2OhVzcTcGtwX97DxQA', '04/15/2021', '10/25/2021')
+# scrape_facebook('', '04/15/2021', '10/25/2021')
