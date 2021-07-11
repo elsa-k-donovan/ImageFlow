@@ -103,13 +103,6 @@ def scrape_twitter(access_key, access_secret_key, api_key, api_secret_key, start
     return df
 
 
-
-access_key="205910278-5yI9NntPRvcNfg5uKYOkrqXrDDuv0lWUqakacVfp"
-access_secret_key = "eFOcxnWjkE6KBhF8wFI96r8DL74E0SHIJFLvdt8WguLoo"
-
 # Monthly cap of 500,000 tweets
-
-api_key = "ujUVWymAGgdyFopRBaAr0Km7U"
-api_secret_key = "w1bzf4gNjSXwz39bOj5QcurWSJIhkox29KXidWRJevKm1t5IJW"
 
 #scrape_twitter(access_key, access_secret_key, api_key, api_secret_key, '04/15/2021', '06/22/2021', '#bmw')
