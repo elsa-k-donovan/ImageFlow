@@ -1,4 +1,4 @@
-I have created a project in Python using Tweepy,PostgreSQL,Celery and integrate all three into Django for an easy to use website interface.
+This project is written in Python using Tweepy,PostgreSQL,Celery integrated into Django for an easy to use website interface.
 
 On the website you are able to search for particular users getting upto the most recent 3200 tweets, search via hashtag in the last 7 days using our non-premium or search the full archive of twitter using the premium twitter account
 
