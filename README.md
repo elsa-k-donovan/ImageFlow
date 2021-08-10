@@ -29,21 +29,12 @@ To run this server on your local host:
            "Host": "",
            "Port": ,
        }
-
-4) Create a 'backend_config.py' file for our tweepy scripts in Twitter/Local_Library/Twitter_API, of form
-
-       Twitter = {
-           "Consumer_Key": "",
-           "Consumer_Secret": "",
-           "Access_Token": "",
-           "Access_Secret": "",
-       }
         
-5) Go into the DDI directory
+4) Go into the DDI directory
 
         cd DDI_Website
 
-6) Then once the above steps are completed, you now run in order in the terminal:
+5) Then once the above steps are completed, you now run in order in the terminal:
 
         python manage.py makemigrations
         python manage.py migrate
@@ -51,7 +42,7 @@ To run this server on your local host:
         OR  
         python manage.py runmodwsgi // Runs on Apache (final server)
 
-7) Then create a new terminal instance while still in DDI_Website folder
+6) Then create a new terminal instance while still in DDI_Website folder
 
         if windows 10:
             pip install gevent 
