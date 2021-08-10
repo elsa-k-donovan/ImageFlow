@@ -1,9 +1,19 @@
 # ImageFlow
 🔎 🗺️ Social Media Image Analysis
 
+[![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger)
 
-**Badges**
-- build status
+## Table of Contents
+
+- [Installation](#installation)
+- [Scrape Memes](#scrape)
+- [Extract Metadata](#extract)
+- [Image Clustering](#image-clustering)
+- [OCR](#ocr)
+- [Meme Viewer](#meme-viewer)
+- [FAQ](#faq)
+- [Support](#support)
+- [License](#license)
 
 > This project is written in Python using Tweepy,PostgreSQL,Celery integrated into Django for an easy to use website interface.
 
@@ -11,7 +21,13 @@ On the website you are able to search for particular users getting upto the most
 
 Once data has been searched for, you can query the data on the query tab and get a CSV file containing the tweets and some other useful fields in relation with them.
 
-## Instructions
+## Installation
+python 3.6
+
+### Setup
+
+> update and install this package first
+
 
 To run this server on your local host:
 
