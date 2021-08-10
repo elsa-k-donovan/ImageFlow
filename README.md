@@ -4,7 +4,7 @@ On the website you are able to search for particular users getting upto the most
 
 Once data has been searched for, you can query the data on the query tab and get a CSV file containing the tweets and some other useful fields in relation with them.
 
-If you would like to run this server on your local host follow these steps:
+To run this server on your local host:
 
 1) git clone this repo into your text editor
 
