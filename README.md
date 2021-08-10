@@ -64,8 +64,6 @@ To run this server on your local host:
         python manage.py makemigrations
         python manage.py migrate
         python manage.py runserver // For just the regular server (for testing purposes)
-        OR  
-        python manage.py runmodwsgi // Runs on Apache (final server)
 
 6) Then create a new terminal instance while still in DDI_Website folder
 
