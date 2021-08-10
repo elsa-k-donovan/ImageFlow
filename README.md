@@ -1,5 +1,5 @@
 # ImageFlow
-🔎 🗺️ Social Media Image Analysis
+🔎 🗺️ Social Media Image Analysis Web App
 
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger)
 
