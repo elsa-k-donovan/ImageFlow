@@ -1,8 +1,17 @@
-This project is written in Python using Tweepy,PostgreSQL,Celery integrated into Django for an easy to use website interface.
+# ImageFlow
+🔎 🗺️ Social Media Image Analysis
+
+
+**Badges**
+- build status
+
+> This project is written in Python using Tweepy,PostgreSQL,Celery integrated into Django for an easy to use website interface.
 
 On the website you are able to search for particular users getting upto the most recent 3200 tweets, search via hashtag in the last 7 days using our non-premium or search the full archive of twitter using the premium twitter account
 
 Once data has been searched for, you can query the data on the query tab and get a CSV file containing the tweets and some other useful fields in relation with them.
+
+## Instructions
 
 To run this server on your local host:
 
