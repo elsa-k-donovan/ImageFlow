@@ -32,7 +32,9 @@ To run this server on your local host:
         brew install postgresql
         pip install -r requirements.txt 
                
-3) Create a 'frontend_config.py' file for our settings.py file in Website_Settings, of form
+3) Create a Django key and PostgreSQL database.
+
+4) Edit the 'frontend_config.py' file in Website_Settings and add in your own key and database information.
 
        Django = {
            "Key": '',
@@ -46,17 +48,17 @@ To run this server on your local host:
            "Port": ,
        }
         
-4) Go into the DDI directory
+5) Go into the DDI directory
 
         cd DDI_Website
 
-5) Then once the above steps are completed, you now run in order in the terminal:
+6) Then once the above steps are completed, you now run in order in the terminal:
 
         python manage.py makemigrations
         python manage.py migrate
         python manage.py runserver // For just the regular server (for testing purposes)
 
-6) Then create a new terminal instance while still in DDI_Website folder
+7) Then create a new terminal instance while still in DDI_Website folder
 
         if windows 10:
             pip install gevent 
@@ -68,7 +70,7 @@ This will let you run your tasks in the background using Celery
 
 Now the website is fully functional!
 
-Just register a new user and enjoy :)
+Just register a new user at http://127.0.0.1:8000/login/ and enjoy!
 
 ## Web Scrapers
 
