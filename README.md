@@ -12,9 +12,6 @@
 
 > This project is written in Python using Tweepy, PostgreSQL, Celery integrated into Django for an easy to use website interface.
 
-On this local-version of the ImageFlow web app you are able to search for particular users getting up to the most recent 3200 tweets, search via hashtag in the last 7 days using our non-premium or search the full archive of twitter using the premium twitter account
-
-Once data has been searched for, you can query the data on the query tab and get a CSV file containing the tweets and some other useful fields in relation with them.
 
 ## Installation
 Python 3.6
@@ -84,7 +81,13 @@ There are four social media APIs used in this project:
 
 ### Limitations
 
-Crowdtangle
+#### Crowdtangle
+
+#### Twitter
+
+On this local-version of the ImageFlow web app you are able to search for particular users getting up to the most recent 3200 tweets, search via hashtag in the last 7 days using our non-premium or search the full archive of twitter using the premium twitter account
+
+Once data has been searched for, you can query the data on the query tab and get a CSV file containing the tweets and some other useful fields in relation with them.
 
 
 ## FAQ
