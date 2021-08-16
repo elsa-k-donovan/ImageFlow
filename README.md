@@ -2,7 +2,6 @@
 🔎 🗺️ Social Media Image Analysis Web App
 
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger)
-
 ![Screenshot](imgs/header_screenshot.png)
 
 ## Table of Contents
