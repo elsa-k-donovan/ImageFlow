@@ -75,7 +75,7 @@ Just register a new user and enjoy :)
 
 There are four social media APIs used in this project:
 - CrowdTangle
-- 4Plebs Archive 
+- 4Plebs
 - PushShift
 - Twitter
 
