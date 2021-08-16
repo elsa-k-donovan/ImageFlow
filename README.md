@@ -21,7 +21,7 @@ python 3.6
 
 ### Setup
 
-> update and install this package first
+> Update and install this package first
 
 
 To run this server on your local host:
