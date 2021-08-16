@@ -27,10 +27,9 @@ To run this server on your local host:
 
 2) On the front page of this repo, copy the requirements.txt file into your project and download it
 
-      a) need to download apache2 for modwsgi, 
+      a) need to download postgresql and requirements.txt
         
         brew install postgresql
-        brew install apache2
         pip install -r requirements.txt 
                
 3) Create a 'frontend_config.py' file for our settings.py file in Website_Settings, of form
