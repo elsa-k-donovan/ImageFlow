@@ -7,13 +7,8 @@
 
 - [Installation](#installation)
 - [Web Scrapers](#web)
-- [Extract Metadata](#extract)
-- [Image Clustering](#image-clustering)
-- [OCR](#ocr)
-- [Meme Viewer](#meme-viewer)
 - [FAQ](#faq)
-- [Support](#support)
-- [License](#license)
+
 
 > This project is written in Python using Tweepy,PostgreSQL,Celery integrated into Django for an easy to use website interface.
 
@@ -80,5 +75,13 @@ Now the website is fully functional!
 Just register a new user and enjoy :)
 
 ## Web Scrapers
+
+There are four social media APIs used in this project:
+- CrowdTangle
+- 4Plebs Archive 
+- PushShift
+- Twitter
+
+## FAQ
 
 
