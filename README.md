@@ -3,7 +3,7 @@
 
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger)
 
-![Screenshot](img/code_of_conduct_screenshot.png)
+![Screenshot](imgs/code_of_conduct_screenshot.png)
 
 ## Table of Contents
 
