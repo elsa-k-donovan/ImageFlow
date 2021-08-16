@@ -82,6 +82,11 @@ There are four social media APIs used in this project:
 - PushShift
 - Twitter
 
+### Limitations
+
+Crowdtangle
+
+
 ## FAQ
 
 
