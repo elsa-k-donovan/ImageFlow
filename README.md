@@ -17,7 +17,7 @@ On this local-version of the ImageFlow web app you are able to search for partic
 Once data has been searched for, you can query the data on the query tab and get a CSV file containing the tweets and some other useful fields in relation with them.
 
 ## Installation
-python 3.6
+Python 3.6
 
 ### Setup
 
