@@ -10,7 +10,7 @@
 - [FAQ](#faq)
 
 
-> This project is written in Python using Tweepy,PostgreSQL,Celery integrated into Django for an easy to use website interface.
+> This project is written in Python using Tweepy, PostgreSQL, Celery integrated into Django for an easy to use website interface.
 
 On this local-version of the ImageFlow web app you are able to search for particular users getting up to the most recent 3200 tweets, search via hashtag in the last 7 days using our non-premium or search the full archive of twitter using the premium twitter account
 
