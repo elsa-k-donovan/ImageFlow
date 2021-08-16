@@ -92,7 +92,7 @@ Once data has been searched for, you can query the data on the query tab and get
 
 ## FAQ
 
-**What if nothing is showing up at my localhost URL? **
+**What if nothing is showing up at my localhost URL?**
 
 Try these two links, if one is not working than the other one should:
 
