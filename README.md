@@ -94,10 +94,8 @@ Once data has been searched for, you can query the data on the query tab and get
 
 **What if nothing is showing up at my localhost URL?**
 
-Try these two links, if one is not working than the other one should:
-
-http://127.0.0.1:8000/
-
-http://127.0.0.1:8000/login/
+Try these two links, if one is not working than the other one should: <br />
+http://127.0.0.1:8000/ <br />
+http://127.0.0.1:8000/login/ <br />
 
 
