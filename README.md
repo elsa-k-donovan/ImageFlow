@@ -18,7 +18,7 @@
 
 <div align='center'><img src="imgs/github_sample_gif.gif" text-align="center" height="400px"></div>
 
-
+<br />
 This app is designed for social media researchers and other investigators who have access to academic API keys for major social media platforms. ImageFlow is useful for those who have to collect large databases of images and need a way to easily view how similar or identical images flow from platform to platform. 
 
 ## Installation
