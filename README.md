@@ -17,7 +17,7 @@
 ## Installation
 Python 3.6
 
-<img align='center'> ![Alt Text](imgs/github_sample_gif.gif) </img>
+<div align="center"> ![Alt Text](imgs/github_sample_gif.gif) </div>
 
 ### Setup
 
