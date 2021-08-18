@@ -17,7 +17,7 @@
 ## Installation
 Python 3.6
 
-<div align='center'><img src="imgs/github_sample_gif.gif" text-align="center" height="300px"></div>
+<div align='center'><img src="imgs/github_sample_gif.gif" text-align="center" height="400px"></div>
 
 ### Setup
 
