@@ -20,7 +20,7 @@
 
 <br />
 This app is designed for social media researchers and other investigators who have access to academic API keys for major social media platforms. ImageFlow is useful for those who have to collect large databases of images and need a way to easily view how similar or identical images flow from platform to platform. 
-<br />
+<br /><br />
 ImageFlow integrates the data gathering process by using four custom web scrapers: 4plebs (the archive for 4chan - since 4chan threads frequently expire), Facebook, Twitter, and Reddit. After the data gathering phase is complete the resulting image database can be clustered in the Image Analysis page. The user can choose to perform a clustering algorithm which will either cluster their database by similar images or by identical images. When the clustering is complete, the final result will show on the Data Visualization page. This page displays only the images that have been clustered, and shows the timeline of movement across platforms.
 
 ## Installation
