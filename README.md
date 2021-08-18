@@ -17,6 +17,8 @@
 ## Installation
 Python 3.6
 
+![Alt Text](imgs/github_sample_gif.gif)
+
 ### Setup
 
 > Update and install this package first
