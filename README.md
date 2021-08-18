@@ -37,8 +37,11 @@ To run this server on your local host:
 
 4) Change file path to the File_Server directory in file_path.py to correct local location. 
 
+
+```
       class filepaths():
             file_server_path = 'Users/user/File_Server'
+```
 
 
 5) Edit the 'frontend_config.py' file in Website_Settings and add in your own key and database information.
