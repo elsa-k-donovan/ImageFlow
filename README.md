@@ -35,7 +35,7 @@ To run this server on your local host:
                
 3) Create a Django key and PostgreSQL database.
 
-4) Change file path to the File_Server directory in file_path.py to correct local location. 
+4) Edit file_path.py to point to the correct location of the File_Server directory. 
 
 
 ```
