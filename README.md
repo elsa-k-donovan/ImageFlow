@@ -99,6 +99,9 @@ There are four social media APIs used in this project:
 
 #### Crowdtangle
 
+Posts and /posts/search will max out at 10,000 posts returned. You can ONLY search the PAGES and GROUPS that are in your dashboard.
+The time between startDate and endDate must be less than a year. Can only handle 10k posts at a time.
+
 #### Twitter
 
 On this local-version of the ImageFlow web app you are able to search for particular users getting up to the most recent 3200 tweets, search via hashtag in the last 7 days using our non-premium or search the full archive of twitter using the premium twitter account
