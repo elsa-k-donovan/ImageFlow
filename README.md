@@ -6,6 +6,7 @@
 
 ## Table of Contents
 
+- [Introduction](#introduction)
 - [Installation](#installation)
 - [Web Scrapers](#web)
 - [FAQ](#faq)
@@ -13,11 +14,13 @@
 
 > This project is written in Python using Tweepy, PostgreSQL, Celery integrated into Django for an easy to use website interface.
 
+## Introduction
+
+<div align='center'><img src="imgs/github_sample_gif.gif" text-align="center" height="400px"></div>
 
 ## Installation
 Python 3.6
 
-<div align='center'><img src="imgs/github_sample_gif.gif" text-align="center" height="400px"></div>
 
 ### Setup
 
