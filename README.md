@@ -47,16 +47,8 @@ To run this server on your local host:
                
 3) Create a Django key and PostgreSQL database.
 
-4) Edit file_path.py to point to the correct location of the File_Server directory. 
 
-
-```
-      class filepaths():
-            file_server_path = 'Users/user/File_Server'
-```
-
-
-5) Edit the 'frontend_config.py' file in Website_Settings and add in your own key and database information.
+4) Edit the 'frontend_config.py' file in Website_Settings and add in your own key and database information.
 
        Django = {
            "Key": '',
@@ -70,17 +62,17 @@ To run this server on your local host:
            "Port": ,
        }
         
-6) Go into the DDI directory
+5) Go into the DDI directory
 
         cd DDI_Website
 
-7) Then once the above steps are completed, you now run in order in the terminal:
+6) Then once the above steps are completed, you now run in order in the terminal:
 
         python manage.py makemigrations
         python manage.py migrate
         python manage.py runserver // For just the regular server (for testing purposes)
 
-8) Then create a new terminal instance while still in DDI_Website folder
+7) Then create a new terminal instance while still in DDI_Website folder
 
         if windows 10:
             pip install gevent 
