@@ -1,0 +1,113 @@
+<!-- navbar_template.html -->
+
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'sidebar.css' %}">
+
+<nav class="navbar navbar-dark" style="filter: drop-shadow(0 0 0.75rem grey); z-index:20; width:100%; position:fixed; top: 0px; background-color: white;">
+    <div class="container-fluid" style="z-index:20">
+        <div class="navbar-header" style="z-index:20">
+          <ul class="nav navbar-nav navbar-left pull-left" style="z-index:20;">
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="#"> <h1 style="font-size: 24px; text-transform: uppercase; color:black" > <strong> {{ PageName }} </strong>  </h1> </a></li> -->
+                
+                <li class="nav-item" style="z-index:20;">
+                <div class="dropdown" style="z-index:20;">
+                  <button class="dropbtn" style="font-size: 24px; text-transform: uppercase; color:black;"> <small style="font-size: 14px;">▼</small> <strong> {{ PageName }} </strong></button>
+                  <div class="dropdown-content" style="z-index:20;">
+                    <a href="../../" id="menu_code">Code of Conduct  📋</a>
+                    <a href="/ImageFlow/ImageGathering" id="menu_gather">Image Gathering  🔎</a>
+                    <a href="/ImageFlow/ImageAnalysis" id="menu_analysis">Image Analysis  📈</a>
+                    <a href="/ImageFlow/ImageVisualization" id="menu_visual">Image Visualization  🎨</a>
+                  </div>
+                </div>
+              </li>
+            
+          </ul>
+        </div>
+        <div class="navbar-body">
+          <ul class="nav navbar-nav navbar-right pull-right">
+              <li class="nav-item" style="color:black">
+                <a class="nav-link" href="/logout/" style="color:black">
+                  <span class="fa-stack fa-lg" style="color:black">
+                    <i class="fas fa-sign-out-alt"></i>
+                  </span >Log Out</a></li>
+          </ul>
+        </div>
+    </div>
+</nav>
+  
+  
+  <!-- <nav role="navigation" style="background-color: lightgrey;">
+    <div id="menuToggle">
+      <!--
+      A fake / hidden checkbox is used as click reciever,
+      so you can use the :checked selector on it.
+      
+      <input type="checkbox" id="myCheck"  style="color:white"/>
+      
+      <!--
+      Some spans to act as a hamburger.
+      
+      They are acting like a real hamburger,
+      not that McDonalds stuff.
+    
+      <span></span>
+      <span></span>
+      <span></span>
+      
+      <!--
+      Too bad the menu has to be inside of the button
+      but hey, it's pure CSS magic.
+      
+      <ul id="menu" style="background-color: black;">
+      
+
+        <div class="dropdown-btn" style="background-color: black;">
+          <a href="#" style="color:white"> ImageFlow </a>
+          <span class="caret">
+          </span>
+        </div>
+        <div class="dropdown-container" style="color:white; background-color: black;"><!-- Ruined formatting for it to look nice on website 
+          <a href="/ImageFlow/ImageGathering" style="color:white"> Image Gathering </a>
+          <a href="/ImageFlow/ImageAnalysis" style="color:white"> Image Analysis </a>
+          <a href="/ImageFlow/ImageVisualization" style="color:white"> Image Visualization </a>
+      </div>
+      
+      </ul>
+    </div>
+  </nav> -->
+
+  <!-- <script>
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+  
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } 
+        else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+
+/*  Closes sidebar if you click anywhere else on the screen  */
+document.addEventListener("click", function(e) {
+  var divWidth = $("#menu").width();	// should be 300, but its 200 for some reason
+  var divHeight = 	$("#menu").height();  
+  var x = document.getElementById("myCheck").checked;
+  if (x == true){
+    var clickX = e.clientX;
+    var clickY = e.clientY;
+    if (clickX > 300){// || clickY > 370) {
+      $("#myCheck").prop("checked", false)
+    } 
+  }
+
+});
+  </script> -->

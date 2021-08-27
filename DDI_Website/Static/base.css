@@ -1,0 +1,14 @@
+h1{
+    color: aqua;
+}
+
+.control-group {
+    background-color: red;
+    margin-bottom: 20px;
+    padding-bottom: 20%;
+}
+
+body {
+    background-color: darkorchid;
+}
+

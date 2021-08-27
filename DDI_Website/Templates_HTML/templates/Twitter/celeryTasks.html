@@ -1,0 +1,118 @@
+{% extends "Twitter/base.html" %}
+
+
+{% block title %}
+  {% include 'navbar.html' with PageName='Task Results' %}
+  <link href="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css" rel="stylesheet">
+
+<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
+  
+{% endblock title %}
+
+  {% block taskResults %}
+    <div class="container">
+      <h2>Task Results Table</h2>
+          <div class="list-group">
+            <div class="d-flex w-100 justify-content-between">
+              <table class="table table-dark" id="resultsTable">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Search Term</th>
+                    <th scope="col">From Date</th>
+                    <th scope="col">To Date</th>
+                    <th scope="col">Page Count</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"># Tweets Retreived</th>
+                    <th scope="col"># Tweets Duplicated</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for taskArgs in tasksData %}
+                    <tr>
+                      <th scope="row">{{forloop.counter}}</th>
+                      <td>
+                        {{taskArgs.0.0}}
+                      </td>
+                      {% if taskArgs.0.1 %}
+                        <td>
+                          {{taskArgs.0.1}}
+                        </td>
+                        <td>
+                          {{taskArgs.0.2}}
+                        </td>
+                        <td>
+                          {{taskArgs.0.3}}
+                        </td>
+                      {% else %}
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                      {% endif %}
+                      
+                      {% if taskArgs.1 == "SUCCESS" %}
+                        <td>  
+                          {{taskArgs.1}}  
+                        </td>
+                        <td>
+                          {{taskArgs.2.numTweets}}
+                        </td>
+                        <td>
+                          {{taskArgs.2.numDuplicates}}
+                        </td>
+                      {% elif taskArgs.1 == "PROGRESS" %}
+                        <td>  
+                          {{taskArgs.1}}  
+                        </td>
+                        <td>
+                          {{taskArgs.2.current}}
+                        </td>
+                        <td>
+                          Wait for Task to Complete
+                        </td>
+                      {% else %}
+                        <td>  
+                          {{taskArgs.1}}  
+                        </td>
+                        <td>
+                          0
+                        </td>
+                        <td>
+                          0
+                        </td>
+                      {% endif %}
+                    </tr>
+                  {% endfor %}
+                </tbody>
+            </div>
+          </div>
+    </div>
+    
+
+    {%  load static  %}
+
+    <script src="{% static 'celery_progress/celery_progress.js' %}"></script>
+    <script> 
+    // vanilla JS version
+      document.addEventListener("DOMContentLoaded", function () {
+        var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+        CeleryProgressBar.initProgressBar(progressUrl);
+      });
+
+
+        $('#resultsTable').DataTable();
+
+    </script>
+  {% endblock taskResults %}
+

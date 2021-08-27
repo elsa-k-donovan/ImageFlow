@@ -1,0 +1,37 @@
+{% extends "Home/base.html" %}
+
+{%  block not_logged %}
+<style>
+  html, body {
+    background-color: lightgrey;
+  }
+
+</style>
+<nav class="navbar navbar-dark" style="filter: drop-shadow(0 0 0.75rem grey); z-index:20; width:100%; position:fixed; top: 0px; background-color: white;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <ul class="nav navbar-nav navbar-left pull-left">
+            <li class="nav-item">
+                <a class="nav-link" href="#"> <h1 style="font-size: large; color: black;"> <strong> Logged Out </strong>  </h1> </a></li>
+            </li>
+          </ul>
+        </div>
+        <div class="navbar-body">
+          <ul class="nav navbar-nav navbar-right pull-right">
+            <li class="nav-item">
+                <a class="nav-link" href="/login/" style="color:black">
+                <span class="fa-stack fa-lg">
+                    <i class="fas fa-sign-in-alt"></i>
+                </span> Log In </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register/" style="color:black">
+                <span class="fa-stack fa-lg">
+                    <i class="fas fa-user-plus"></i>
+                </span> Sign Up </a>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </nav>
+{%  endblock not_logged %}

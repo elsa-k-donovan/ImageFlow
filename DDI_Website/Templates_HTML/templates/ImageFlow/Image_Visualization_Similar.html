@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+
+<style>
+  /* The container */
+  .containerx {
+    display: block;
+    position: relative;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+
+    margin: 0px !important;
+    cursor: pointer;
+    font-size: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Hide the browser's default checkbox */
+  .containerx input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+  }
+
+  /* On mouse-over, add a grey background color */
+  .containerx:hover input~.checkmark {
+    background-color: #ccc;
+  }
+
+  /* When the checkbox is checked, add a blue background */
+  .containerx input:checked~.checkmark {
+    background-color: grey;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the checkmark when checked */
+  .containerx input:checked~.checkmark:after {
+    display: block;
+  }
+
+  /* Style the checkmark/indicator */
+  .containerx .checkmark:after {
+    left: 7px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+
+  }
+
+  .focusLine {
+    fill: none;
+    stroke: black;
+    stroke-width: 1px;
+  }
+
+
+  text {
+    font-family: sans-serif;
+    font-size: 10px;
+  }
+
+</style>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js">
+
+</script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+  integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<!-- Create a div where the graph will take place -->
+<!-- Button -->
+
+<div class="jumbotron vertical-center" style="background-color: white;"></div>
+
+<div class="container-fluid">
+  <div class="col-md-3 ">
+    <h1 class="display-1" style="font-size: 50px; padding-bottom: 30px;"> <strong> MEME ANALYZER </strong></h1>
+    <ul class="list-group">
+      <li class="h4">Select checkboxes to filter by platform.</li>
+      <li class="h4">Rollover on each meme to display the meme and first appearance on each platform.</li>
+      <li class="h4">Click & drag to zoom into the selection.</li>
+      <li class="h4">Double click to reset view.</li>
+    </ul>
+
+    <!-- <p class="h4 mx-auto"><strong>Data:</strong> The images from this data set were collected from ___ to ___ on x,y,z,w platforms. In relation to x in y. </p> -->
+    <p class="h4 mx-auto"><strong>Cluster:</strong> Collection of identical images found on social media platforms. </p>
+    <p class="h4 mx-auto" style="padding-top: 50px; font-size: 16px;">Funded by Canadian Heritage Foundation</p>
+    <p style=" font-size: 16px;" class="h4 mx-auto">
+      <strong>Researchers:</strong>
+      Fenwick Mckelvey,
+      Ganaele M. Langlois,
+      Greg Elmer,
+      Elsa Donovan,
+      Hedayat Tabesh,
+      Jonathan Silveira,
+      Patricio Davila
+    </p>
+  </div>
+
+  <div class="col-md-6 w-100 p-3 " id="my_dataviz">
+    <h6 style="padding-bottom: 10px; padding-left: 15px; text-transform: uppercase;"> <strong> Similar Meme Clusters Sorted by Emergence </strong></h6>
+  </div>
+
+  <div class="col-md-3" id="my_meme">
+
+    <h4><strong>FILTER BY PLATFORM</strong></h4>
+
+    <label class="containerx checkbox-inline">4Chan
+      <input type="checkbox" checked class="checkbox" value="chan">
+      <span class="checkmark"></span>
+    </label>
+
+    <label class="containerx checkbox-inline">Reddit
+      <input type="checkbox" checked class="checkbox" value="reddit">
+      <span class="checkmark"></span>
+    </label>
+
+    <label class="containerx checkbox-inline">Twitter
+      <input type="checkbox" checked class="checkbox" value="twitter">
+      <span class="checkmark"></span>
+    </label>
+
+    <label class="containerx checkbox-inline">Facebook
+      <input type="checkbox" checked class="checkbox" value="facebook">
+      <span class="checkmark"></span>
+    </label>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+  var margin = { top: 30, right: 30, bottom: 30, left: 30 },
+    width = 850 - margin.left - margin.right,
+    height = 850 - margin.top - margin.bottom;
+
+
+
+    var clicked;
+
+
+  //The initial bar graph values
+  var data2 =
+  {
+    "facebook": 0.1,
+    "twitter": 0.1,
+    "4chan": 0.1,
+    "reddit": 0.1
+  }
+
+//ViewBox is used for felixable chart size
+  var svg = d3.select("#my_dataviz")
+    .append("svg")
+    .attr("viewBox", `0 0 850 850`)
+    .append("g")
+
+
+  //Add a clipPath: everything out of this area won't be drawn.
+  var clip = svg.append("defs").append("svg:clipPath")
+    .attr("id", "clip")
+    .append("rect")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("x", 0)
+    .attr("y", 0)
+
+  //NON UPDATING TEXT  
+  d3.select("#my_meme")
+    .append("p")
+    .html("DATA")
+    .style("font-weight", "bold")
+    .style("font-size", "10px")
+    .style("padding-top", "30px")
+    .style("margin", "0")
+
+  //NON UPDATING TEXT
+  var infoFirstApp = d3.select("#my_meme")
+    .append("p")
+    .html("FIRST APPEARANCE")
+    .style("font-size", "18px")
+    .style("font-weight", "bold")
+
+  //NON UPDATING TEXT 
+  d3.select("#my_meme")
+    .append("p")
+    .html("CLUSTER NUMBER: ")
+    .style("font-weight", "bold")
+    .style("margin", "0")
+    .style("font-size", "10px")
+
+  //UPDATING TEXT - Cluster
+  var infoC = d3.select("#my_meme")
+    .append("p")
+    .style("font-size", "18px")
+    .style("margin", "0")
+    .style("height", "35px")
+
+  //NON UPDATING TEXT 
+  d3.select("#my_meme")
+    .append("p")
+    .html("PLATFORM: ")
+    .style("font-weight", "bold")
+    .style("margin", "0")
+    .style("font-size", "10px")
+
+  //UPDATING TEXT - Platform
+  var infoP = d3.select("#my_meme")
+    .append("p")
+    .style("font-size", "18px")
+    .style("margin", "0")
+    .style("height", "35px")
+
+  //NON UPDATING - lable DATE
+  d3.select("#my_meme")
+    .append("p")
+    .html("DATE: ")
+    .style("font-weight", "bold")
+    .style("margin", "0")
+    .style("font-size", "10px")
+
+  //UPDATING TEXT DATE
+  var infoD = d3.select("#my_meme")
+    .append("p")
+    .style("font-size", "18px")
+    .style("margin", "0")
+    .style("height", "35px")
+  
+  //NON UPDATING TEXT - NUMBER OF MEMES IN CLUSTER: 
+  d3.select("#my_meme")
+    .append("p")
+    .html("NUMBER OF MEMES IN CLUSTER: ")
+    .style("font-weight", "bold")
+    .style("margin", "0")
+    .style("font-size", "10px")
+
+  //UPDATING TEXT - Number of values in cluster
+  var infoNumCluster = d3.select("#my_meme")
+    .append("p")
+    .style("font-size", "18px")
+    .style("height", "30px")
+
+  //NON UPDATING TEXT - BREAKDOWN BY PLATFORM
+  d3.select("#my_meme")
+    .append("p")
+    .html("BREAKDOWN BY PLATFORM")
+    .style("font-weight", "bold")
+    .style("font-size", "18px")
+
+  // The bargraph svg
+  var svg1 = d3.select("#my_meme")
+    .append("svg")
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .append("g")
+
+
+
+
+//This is the image on the right hidden until updated
+  
+
+
+//{Update//
+
+//New
+var imgGrid = d3.select("#my_meme")
+
+//Old
+// var img = d3.select("#my_meme")
+//     .append("img")
+//     .attr("width", "100%")
+//     .attr("height", "100%")
+
+//     .attr("object-fit", "cover")
+//     .attr("x", 228)
+//     .attr("y", 53)
+//     .style("opacity", 1)
+  // .attr("src", "img/0a3qvmntswt31.jpg")
+//Update}//
+
+
+
+
+
+
+
+
+
+
+// var numRows = 10;
+// var numCols = 10;
+
+
+// var data = d3.range(numCols*numRows);
+
+
+// var imgGrid_y = d3.scaleBand()
+//         .range([0,250])
+//         .domain(d3.range(numRows));
+
+// var imgGrid_x = d3.scaleBand()
+//         .range([0, 250])
+//         .domain(d3.range(numCols));
+
+// var container = img.append("g")
+       // .attr("transform", "translate(120,120)");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // X axis for small bar graph
+  var xBar = d3.scaleBand()
+    .range([0, 300])
+    .domain(Object.keys(data2).map(function (key, index) {
+      return key
+    }))
+    .padding(0.2);
+
+  svg1.append("g")
+    .attr("transform", "translate(0," + "100" + ")")
+    .call(d3.axisBottom(xBar))
+
+  // Add Y axis for small bar graph
+  var yBar = d3.scaleLinear()
+    .domain([0, 20])
+    .range([100, 0]);
+  svg1.append("g")
+    .attr("class", "myYaxis")
+    .call(d3.axisLeft(yBar));
+
+  var format = d3.timeParse("%Q");
+
+  var formatDate = d3.timeFormat("%d %B %Y")
+
+  d3.json("jonathan_similar_imageset_dimensions.json", function (data) {
+
+    // Get Keys of the json object
+    // Itterate through each Cluster
+    var xDomainMax = d3.max(Object.keys(data.filename), function (d) {
+      return format(data.datetime[d][data.datetime[d].length - 1])
+    });
+
+    var xDomainMin = d3.min(Object.keys(data.filename), function (d) {
+      return format(data.datetime[d][0])
+    });
+
+    var xDomain = [xDomainMin, xDomainMax]
+
+    var yDomain = d3.extent(Object.keys(data.filename), function (d) { return data.datetime[d].length - 1; });
+
+    
+    var x = d3.scaleTime()
+      .domain(xDomain)
+      .range([20, width]);
+
+    
+    var y = d3.scaleLog()
+      .domain(yDomain)
+      .range([height, 0])
+      .base(2)
+
+// Add X axis Y axis
+    let xAxis = d3.axisBottom(x).ticks(4).tickPadding(10),
+      yAxis = d3.axisLeft(y);
+
+
+    let brush = d3.brush().extent([[0, 0], [width, height]]).on("end", brushended),
+      idleTimeout,
+      idleDelay = 350;
+
+
+    //Lables for crosshairs  
+    var labelx = svg.append("text")
+      .style("text-anchor", "end");
+
+    var labely = svg.append("text")
+      .style("text-anchor", "end");
+
+
+
+    //CrossHair lines ID  
+    var focus = svg.append('g')
+
+    // // create horizontal line
+    focus.append('line')
+      .attr('id', 'focusLineX')
+      .attr('class', 'focusLine')
+    
+      // // create vertical line
+    focus.append('line')
+      .attr('id', 'focusLineY')
+      .attr('class', 'focusLine')
+
+
+ 
+
+    // Create the scatter variable: where both the circles and the brush take place
+    var scatter = svg.append('g')
+      .attr("id", "scatterplot")
+      .attr("clip-path", "url(#clip)")
+      .data(Object.keys(data.filename))
+      .on("mousemove", function (d) {
+
+        //When mouse moves around on scatterplot update the crosshair and crosshair lables
+        var mouse = d3.mouse(this);
+
+        d3.select('#focusLineX')
+          .attr('x1', mouse[0]).attr('y1', y(yDomain[0]))
+          .attr('x2', mouse[0]).attr('y2', y(yDomain[1]))
+          .attr('pointer-events', "none")
+
+        d3.select('#focusLineY')
+          .attr('x1', x(xDomain[0])).attr('y1', mouse[1])
+          .attr('x2', x(xDomain[1])).attr('y2', mouse[1])
+          .attr('pointer-events', "none")
+
+        labelx.text(formatDate(x.invert(mouse[0])))
+          .style("font-size", "10px")
+          .style("font-weight", "bold")
+          .attr('x', '-15px')
+          .attr('y', '-15px')
+          .attr('transform', 'translate(' + mouse[0] + ',' + mouse[1] + ')rotate(-90)')
+          .style("text-transform", "uppercase")
+          .attr('pointer-events', "none")
+
+        //Updates the 
+        labely.text("# Memes in Cluster:" + Math.round(y.invert(mouse[1])))
+          .style("font-size", "10px")
+          .style("font-weight", "bold")
+          .attr('x', '-15px')
+          .attr('y', '-15px')
+          .attr('transform', 'translate(' + mouse[0] + ',' + mouse[1] + ')')
+          .style("text-transform", "uppercase")
+          .attr('pointer-events', "none")
+      })
+
+
+
+    //Scatter plot x axis  
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr('id', "axis--x")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+      
+    //Scatter plot x axis  lable
+    svg.append("text")
+      .style("text-anchor", "end")
+      .attr("x", width)
+      .attr("y", height - 15)
+      .text("Date");
+
+    //Scatter plot y axis
+    svg.append("g")
+      .attr("class", "y axis")
+      .attr('id', "axis--y")
+      .attr("transform", "translate (" + 20 + " )")
+      .call(yAxis);
+    
+    //Scatter plot y axis lable
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 30)
+      .attr("dy", "1em")
+      .style("text-anchor", "end")
+      .text("Popularity");
+
+
+
+    //Add the brushing
+    // Brush is zooming in and out
+    scatter
+      .append("g")
+      .attr("class", "brush")
+      .call(brush)
+
+    scatter
+      .selectAll('.dot')
+      .data(Object.keys(data.filename))
+      .enter()
+      .append('rect')
+
+      .attr("class", function (d) {
+        var group;
+        // not possible to select class if numeral 
+        // needs to be changed to a real letter
+        if (data.socialmedia[d][0] === "4chan") {
+          group = "chan"
+        }
+        else {
+          group = data.socialmedia[d][0]
+        }
+        return (group + " " + d)
+      })
+
+      .attr('id', "nodes")
+      .attr("x", function (d) { return (x(format(data.datetime[d][0]))) })
+      .attr("y", function (d) { return (y(format(data.datetime[d].length))) })
+      .attr('width', function (d) { return data.dimensions[d][0].split(" ")[0] / 30 })
+      .attr('height', function (d) { return data.dimensions[d][1].split(" ")[1] / 30 })
+      //.style("fill", function (d) { return data.color[d][0] })
+      .style("fill", function(d) {
+        
+        
+        //console.log(Object.keys(data.filename).indexOf(d))
+        
+        return genColor(
+        
+        Object.keys(data.filename).indexOf(d)
+        ,
+        
+        Object.keys(data.filename).length
+        
+        )})
+      .style("opacity", 0.8)
+      .attr('pointer-events', 'all')
+      
+      .on("mouseover", function (d) { mouseover(d) })
+      .on("mouseleave", function (d) { mouseleave(d) })
+
+
+    //zooming in when clicked and dragged
+    function brushended() {
+      let s = d3.event.selection;
+      if (!s) {
+        if (!idleTimeout) return idleTimeout = setTimeout(idled, idleDelay);
+        x.domain(xDomain);
+        y.domain(yDomain);
+
+      } else {
+
+        x.domain([s[0][0], s[1][0]].map(x.invert, x));
+        y.domain([s[1][1], s[0][1]].map(y.invert, y));
+        scatter.select(".brush").call(brush.move, null);
+      }
+      zoom();
+    }
+
+    function idled() {
+      idleTimeout = null;
+    }
+
+    //Part of brushended/ Zooming in when clicked and dragged
+    function zoom() {
+      let t = scatter.transition().duration(750);
+      svg.select("#axis--x").transition(t).call(xAxis);
+      svg.select("#axis--y").transition(t).call(yAxis);
+
+      scatter.selectAll('#nodes').transition(t)
+        .attr("x", function (d) { return (x(format(data.datetime[d][0]))) })
+        .attr("y", function (d) { return (y(format(data.datetime[d].length))) })
+    }
+
+
+    function mouseleave(d) {
+      console.log("close")
+    ///Clears all information in the right pannel
+      infoC
+        .html("")
+
+      infoP
+        .html("")
+
+      infoD
+        .html("")
+
+      infoNumCluster
+        .html("")
+
+
+
+    //{UPDATE//
+    
+    //old
+    //img
+    // .style("opacity", 0)
+    
+    //New
+     imgGrid
+     .selectAll("a").remove();
+    
+    //UPDATE}//
+
+
+
+      d3.selectAll('#nodes')
+        .style("opacity", "0.5")
+
+      //Updated the small bar graphy back to 0 0 0 0
+      update(data2)
+
+      //Removed the additional platforms and text that are drawn after the main table
+      d3.selectAll("rect.AdditionalPost").remove()
+      d3.selectAll("text.AdditionalPost").remove()
+
+    }
+
+
+
+
+    function mouseover(d) {
+
+
+      //{UPDATE//
+     
+        //old
+        // img
+        // .attr("src", function (c) { return "img/" + data.filename[d][0] })
+        // .style("opacity", 1)
+
+        //NEW
+      imgGrid
+        .style("opacity", 1)
+
+      data.filename[d].forEach(function(i) {  
+        imgGrid
+        .append("a")
+        .attr("href", "img/" + i)
+        .append("img")
+        .attr("height","90")
+        .attr("src" , "img/" + i)
+        });
+
+ //UPDATE}//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      infoC
+        .html(d)
+
+      infoP
+        .html(data.socialmedia[d][0])
+        .style("text-transform", "capitalize")
+
+      infoD
+        .html(formatDate(data.datetime[d][0]))
+
+      infoNumCluster
+        .html(data.filename[d].length)
+
+      //This looks at the length of the cluster itterates though it and collects unique values and tallies them
+      var counts = {};
+      var arr = data.socialmedia[d]
+      for (var i = 0; i < arr.length; i++) {
+        counts[arr[i]] = 1 + (counts[arr[i]] || 0);
+
+      }
+
+      //Updadate the bar graph using the tally and unique values
+      //Eg. 4chan: 4, reddit: 5
+      update(counts, data.color[d][0])
+
+
+      //Draws the first value per platform
+      Object.keys(counts).map(function (key, index) {
+        var index = data.socialmedia[d].indexOf(key);
+
+        //Exclude the first instance thats posted
+        //Already drawn
+        if (index != 0) {
+
+          scatter
+            .append('rect')
+            .attr('class', "AdditionalPost")
+            //.attr('id', "nodes")
+            .attr("x", x(format(data.datetime[d][index])))
+            .attr("y", y(format(data.datetime[d].length)))
+            .attr('width', data.dimensions[d][0].split(" ")[0] / 30)
+            .attr('height', data.dimensions[d][1].split(" ")[1] / 30)
+            //.style("fill", data.color[d][index])
+            .style("fill", genColor(
+              
+              Object.keys(data.filename).indexOf(d)
+            
+            ))
+            .style("opacity", 0.8)
+            .attr('pointer-events', 'none')
+
+        }
+
+        svg
+          .append('text')
+          .attr('class', "AdditionalPost")
+          .attr("x", x(format(data.datetime[d][index])))
+          .attr("y", y(format(data.datetime[d].length)) + (data.dimensions[d][1].split(" ")[1] / 30) / 2)
+          //.attr("y", y(format(data.datetime[d].length))+10)
+          .text(data.socialmedia[d][index])
+          .attr('pointer-events', 'none')
+          .style('font-size', "20px")
+          .style("text-transform", "capitalize")
+
+      })
+
+      //This hides all other memes when one is selected
+      d3.selectAll('#nodes').each(function (c) {
+        d3.select(this)
+          .style("opacity", function (p) {
+
+            var val;
+            if (d != c) {
+              val = 0.05
+            }
+            else {
+              val = 0.8
+            }
+            return val
+          })
+      })
+   
+   
+   
+
+
+   
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // This function filters the social media platform
+    function updateFilter() {
+
+      // For each check box:
+      d3.selectAll(".checkbox").each(function (d) {
+        cb = d3.select(this).property("checked")
+
+        grp = d3.select(this).property("value")
+
+        // If the box is check, I show the group
+        if (cb) {
+          svg.selectAll("." + grp)
+            .transition()
+            .duration(1000)
+            .style("opacity", 0.5)
+            .attr('width', function (d) { return data.dimensions[d][0].split(" ")[0] / 30 })
+            .attr('height', function (d) { return data.dimensions[d][1].split(" ")[1] / 30 })
+
+          // Otherwise I hide it
+        } else {
+          svg.selectAll("." + grp)
+            .transition()
+            .duration(1000)
+            .style("opacity", 0)
+            .attr('width', 0)
+            .attr('height', 0)
+        }
+      })
+    }
+
+    // When a button change, I run the update function
+    d3.selectAll(".checkbox").on("change", updateFilter);
+
+    // And I initialize it at the beginning
+    updateFilter()
+
+  });
+
+  //Updates the small bar graph
+  //Works by updating the "data" array that is used to create the bargraph
+  function update(data, color) {
+
+    var u = svg1.selectAll("rect")
+      .data(Object.keys(data))
+
+    u
+      .enter()
+      .append("rect")
+      .merge(u)
+      .transition()
+      .duration(200)
+      .attr("x", function (d) { return xBar(d); })
+      .attr("y", function (d) { return yBar(data[d]); })
+      .attr("width", xBar.bandwidth())
+      .attr("height", function (d) { return 100 - yBar(data[d]); })
+      .style("fill", "gray")
+  }
+
+  // Initialize the plot with the first dataset
+  update(data2)
+
+
+
+
+
+function genColor(seed){
+
+  //console.log(seed)
+//console.log(Math.floor((Math.abs(Math.sin(seed) * 16777215)) % 16777215).toString(16))
+
+
+//  return "#" + Math.floor((Math.abs(Math.sin(seed) * 16777215)) % 16777215).toString(16);
+
+var color = '#52b69a'
+
+// 83c5be
+var p = 1,
+        temp,
+        random = Math.abs(Math.sin(seed)),
+        result = '#';
+
+    while (p < color.length) {
+        temp = parseInt(color.slice(p, p += 2), 16)
+        temp += Math.floor((150 - temp) * random);
+        result += temp.toString(16).padStart(2, '0');
+    }
+    return result;
+
+
+
+// var r = 51
+// var g = 51
+// var b = 255
+
+
+
+
+// var max = Math.max(Math.max(r, Math.max(g,b)), 1);
+
+// var step = 255 / (max * maxL)
+// //console.log(step)
+
+//  return (
+   
+//  "rgb(" + 
+//  String(r * step * seed) + "," + 
+//  String(g * step * seed) + "," +
+//  String(b * step * seed) + ")"
+
+
+ 
+//  )
+
+// (r * step, g * step, b * step)
+// (r * step * 2, g * step * 2, b * step * 2)
+// (r * step * 3, g * step * 3, b * step * 3)
+
+
+
+
+
+
+
+
+//     var max = Math.max(Math.max(r, Math.max(g,b)), 1);
+// console.log(max,seed)
+
+
+// console.log( 255/(max*parseInt(seed)) )
+
+
+// var step = 255 / (max * parseInt(seed))
+// (r * step, g * step, b * step)
+// (r * step * 2, g * step * 2, b * step * 2)
+// (r * step * 3, g * step * 3, b * step * 3)
+
+
+// return "rgb(255,0,0)"
+
+
+}
+
+
+
+
+
+
+function getRandomColor(color) {
+    var p = 1,
+        temp,
+        random = Math.random(),
+        result = '#';
+
+    while (p < color.length) {
+        temp = parseInt(color.slice(p, p += 2), 16)
+        temp += Math.floor((255 - temp) * random);
+        result += temp.toString(16).padStart(2, '0');
+    }
+    return result;
+}
+
+
+
+
+
+
+
+// document.addEventListener('click', function(e) {
+//     e = e || window.event;
+//     var target = e.target || e.srcElement,
+//         text = target.textContent || target.innerText;   
+//     console.log(e)
+//     // console.log(target.classList)
+// }
+
+
+
+
+// , false);
+
+
+
+
+
+
+
+
+
+</script>
+
+
+<script>
+
+</script>
