@@ -57,6 +57,11 @@
 
   <div class="col-md-3" id="my_meme">
 
+    <!-- <label class="containerx checkbox-inline"> Example?
+      <input type="checkbox" checked class="checkbox_ex" value="example">
+      <span class="checkmark"></span>
+    </label> -->
+
     <h6><strong>FILTER BY PLATFORM</strong></h6>
 
     <label class="containerx checkbox-inline">4Chan
@@ -75,7 +80,7 @@
     </label>
 
     <label class="containerx checkbox-inline">Facebook
-      <input type="checkbox" checked class="checkbox" value="facebook">
+      <input type="checkbox" checked class="checkbox" value="Facebook">
       <span class="checkmark"></span>
     </label>
   </div>
@@ -83,6 +88,11 @@
 </div>
 
 <script>
+
+  //Add option for example version
+  var json_path = "http://127.0.0.1:8000/ImageFlow/viz_cleaned_data.json"
+
+  json_path = "http://127.0.0.1:8000/ImageFlow/similar_imageset_dimensions.json"
 
   var margin = { top: 30, right: 30, bottom: 30, left: 30 },
     width = 850 - margin.left - margin.right,
@@ -97,7 +107,7 @@
     "reddit": 0.1
   }
 
-//ViewBox is used for felixable chart size
+  //ViewBox is used for felixable chart size
   var svg = d3.select("#my_dataviz")
     .append("svg")
     .attr("viewBox", `0 0 850 850`)
@@ -245,7 +255,7 @@
     }
 
 //Date and time based on Server's timezone
-d3.json("http://127.0.0.1:8000/ImageFlow/viz_cleaned_data.json", function(location) {
+d3.json(json_path, function(location) {
         console.log(location)
   });
 
@@ -254,7 +264,7 @@ d3.json("http://127.0.0.1:8000/ImageFlow/viz_cleaned_data.json", function(locati
 // add path the visualization folder! 
 // CHANGE PATH WHEN MODE TO DIFFERENT SERVER
   //TODO: CHANGE THIS BEFORE PUSHING
-  d3.json("http://127.0.0.1:8000/ImageFlow/viz_cleaned_data.json", function (error, data) {
+  d3.json(json_path, function (error, data) {
 
     console.log("Connected to the json file." + data);
     
@@ -281,7 +291,6 @@ d3.json("http://127.0.0.1:8000/ImageFlow/viz_cleaned_data.json", function(locati
       return d3.timeDay.offset(format(data.timestamp[d][0]),-1)
     });
 
-    //TODO: XDOMAIN NOT GETTING PROPERLY CALCULATED!!
     var xDomain = [xDomainMin, xDomainMax]
     console.log("XDomain: " + xDomain);
 
@@ -335,7 +344,6 @@ d3.json("http://127.0.0.1:8000/ImageFlow/viz_cleaned_data.json", function(locati
 
     var labely = svg.append("text")
       .style("text-anchor", "end");
-
 
 
     //CrossHair lines ID  
@@ -588,9 +596,17 @@ d3.json("http://127.0.0.1:8000/ImageFlow/viz_cleaned_data.json", function(locati
       //Swaps out image src with link from table
 
       var filename = data.filename[d][0].replace(/^.*[\\\/]/, '')
+      var socialmedia_path 
+
+      if (data.socialmedia[d][0] == "4chan") {
+        socialmedia_path = "fourchan"
+      }
+      else {
+        socialmedia_path = data.socialmedia[d][0]
+      }
 
       img
-        .attr("src", function (c) { return "http://127.0.0.1:8000/static/ImageFlow/img/" + data.socialmedia[d][0] + "/" + filename })
+        .attr("src", function (c) { return "http://127.0.0.1:8000/static/ImageFlow/img/" + socialmedia_path + "/" + filename })
         .style("opacity", 1)
 
       // img
@@ -605,7 +621,7 @@ d3.json("http://127.0.0.1:8000/ImageFlow/viz_cleaned_data.json", function(locati
         .html(d)
 
       infoP
-        .html(data.socialmedia[d][0])
+        .html(data.group[d][0])
         .style("text-transform", "capitalize")
 
       infoD
@@ -693,13 +709,15 @@ d3.json("http://127.0.0.1:8000/ImageFlow/viz_cleaned_data.json", function(locati
       })
     }
 
+
+
+
     // This function filters the social media platform
     function updateFilter() {
 
       // For each check box:
       d3.selectAll(".checkbox").each(function (d) {
         cb = d3.select(this).property("checked")
-
         grp = d3.select(this).property("value")
 
         // If the box is check, I show the group
@@ -722,6 +740,24 @@ d3.json("http://127.0.0.1:8000/ImageFlow/viz_cleaned_data.json", function(locati
         }
       })
     }
+
+    // function updateJson() {
+    //   d3.selectAll(".checkbox_ex").each(function (d) {
+    //     cb = d3.select(this).property("checked")
+
+    //     if (cb) {
+    //       json_path = "http://127.0.0.1:8000/ImageFlow/similar_imageset_dimensions.json"
+    //       window.location.reload();
+    //     }
+    //     else {
+    //       json_path = "http://127.0.0.1:8000/ImageFlow/viz_cleaned_data.json"
+    //       window.location.reload();
+    //     }
+    //   })
+    // }
+
+    //d3.selectAll(".checkbox").on("change", updateJson);
+
 
     // When a button change, I run the update function
     d3.selectAll(".checkbox").on("change", updateFilter);
