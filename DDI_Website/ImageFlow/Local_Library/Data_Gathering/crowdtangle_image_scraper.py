@@ -6,6 +6,7 @@ from tqdm import tqdm
 import pandas as pd
 import PIL
 from Website_Settings.file_paths import filepaths
+import wget
 
 saveDirectory = filepaths.file_server_path + "ImageFlow/img/facebook/"
 
@@ -21,8 +22,19 @@ saveDirectory = filepaths.file_server_path + "ImageFlow/img/facebook/"
 # Everyone in the same dashboard will have the same API token
 
 def download_image(url):
+
     print("Started download")
-    response = requests.get(url, stream=True)
+    try:
+        response = requests.get(url, stream=True, headers={'User-Agent': 'Mozilla/5.0'})
+    except Exception as ex3:
+        print("requests.get did not work for this link. Trying with wget.")
+        try:
+            wget.download(url)
+        except Exception as wget_error:
+            print("wget.download failed.")
+
+
+
     print("response works")
 
     # get the total file size
@@ -91,8 +103,10 @@ def scrape_facebook(api_token, startDate_old, endDate_old):
 
     posts = client.posts(type='photo', start_date=startDate, end_date=endDate, sort_by='DATE')
     for post in posts:
-        print(post)
+        #print(post)
         count += 1
+
+        #TODO: Not sure this is working
         if post['type'] == 'photo':
             media = (post['media'])
             date_time = post['datetime']
@@ -104,10 +118,13 @@ def scrape_facebook(api_token, startDate_old, endDate_old):
             media = media.split()
             isURL = False
 
+            #print("This is the media: " + media)
+
             for i in media:
+                #print(str(i))
                 if isURL:
-                    # print(i)
                     image_url = i
+                    print("This is the Image URL: " + str(image_url))
                     break
                 if "url" in i:
                     isURL = True
@@ -119,11 +136,12 @@ def scrape_facebook(api_token, startDate_old, endDate_old):
 
             try:
                 # download image file to database folder
-                print(image_url)
+                #print(image_url)
                 image_url = image_url.strip('\',')
+                print("Updated image URL: " + str(image_url))
                 file_name = download_image(image_url)
 
-                print(dimension)
+                #print(dimension)
 
                 print("Successfully downloaded image.")
                 try:
@@ -142,4 +160,3 @@ def scrape_facebook(api_token, startDate_old, endDate_old):
 
     df = pd.DataFrame(output_df)
     return df
-
