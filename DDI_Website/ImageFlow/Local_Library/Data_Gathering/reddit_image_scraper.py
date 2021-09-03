@@ -13,9 +13,13 @@ import PIL
 from Website_Settings.file_paths import filepaths
 
 saveDirectory = filepaths.file_server_path + "ImageFlow/img/reddit/"
-count_num = 0
+#count_num = 0
 
 # Easy conversion for date to UNIX timestamps here: https://www.unixtimestamp.com/index.php
+
+# NEW RATE LIMIT: 1 REQUEST per Second
+##########################################
+##########################################
 
 
 def download_image(url):
@@ -29,16 +33,16 @@ def download_image(url):
 
     # get the file name
     file_name = (url.split("/")[-1])
-    print("FileName:")
-    print(file_name)
+    #print("FileName:")
+    #print(file_name)
 
     # progress bar, changing the unit to bytes instead of iteration (default by tqdm)
     progress = tqdm(response.iter_content(1024), f"Downloading {file_name}", total=file_size, unit="B",
                     unit_scale=True, unit_divisor=1024)
 
     print("Progress bar done")
-    print(saveDirectory)
-    print(saveDirectory + file_name)
+    #print(saveDirectory)
+    #print(saveDirectory + file_name)
 
     with open(saveDirectory + file_name, "wb") as f:
         for data in progress.iterable:
@@ -51,7 +55,7 @@ def download_image(url):
 
     image_url = saveDirectory+file_name
     print("opening image")
-    print(image_url)
+    #print(image_url)
 
 
     image = PIL.Image.open(open(image_url, 'rb'))
@@ -62,7 +66,7 @@ def download_image(url):
     return file_name
 
 def scrape_reddit(sub_list, startDate, endDate):
-    
+    count_num = 0
     start_time = time.time()
 
     #path = "/home/webapp/Digital-Democracies-Instititute-Website/DDI_Website/ImageFlow/data/reddit"
@@ -157,7 +161,8 @@ def scrape_reddit(sub_list, startDate, endDate):
 
                 print("\n")
         
-            print("Requests made: " + count_num)
+        
+        print("Requests made: " + str(count_num))
 
 
     #create DF
