@@ -145,4 +145,3 @@ def scrape_twitter(api_key, api_secret_key, start, end, hashtags):
     print("--- %s seconds ---" % round(time.time() - start_time, 2))
 
     return df
-
