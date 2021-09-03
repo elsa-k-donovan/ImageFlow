@@ -167,6 +167,7 @@ def scrape_4chan(start, end, groups, country_code):
 
     # Output is Pandas Dataframe
     df = pd.DataFrame(output_df)
+    
     df.to_csv(filepaths.file_server_path + "test_fourchan.csv")
 
     print("Total posts searched: " + str(total_posts))
