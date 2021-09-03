@@ -182,6 +182,23 @@ def visualization_json(request):
     return render(request, homeHTML , context) 
 
 
+
+def example_json(request):
+    # make it return the appropriate one by putting it in this url!
+    homeHTML = 'ImageFlow/similar_imageset_dimensions.json'
+    #homeHTML = 'ImageFlow/viz_cleaned_data.json'
+
+    # need to move all the images to the right folder to show!
+
+    ## task is done lets load page! 
+    context = {
+        'nothingggg': "",
+       }
+
+    return render(request, homeHTML , context) 
+
+
+
 def CodeofConduct(request):
     homeHTML = 'ImageFlow/CodeofConduct.html'
 
