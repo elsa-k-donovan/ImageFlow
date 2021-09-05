@@ -30,7 +30,7 @@ Python 3.6
 
 ### Using Docker
 
-1) Download Docker for Desktop - restart your computer after installation and make sure it is running before continuing. In Docker Desktop, especially on Macs, please increase the amount of memory available to at least 8GB.
+1) Download <a href="https://www.docker.com/products/docker-desktop"> Docker for Desktop </a> - restart your computer after installation and make sure it is running before continuing. In Docker Desktop, especially on Macs, please increase the amount of memory available to at least 8GB.
 
 2) Clone this repo to your local machine and CD into Repo in terminal or CMD
 
