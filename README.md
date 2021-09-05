@@ -28,12 +28,6 @@ This app is a locally-hosted version of the web-tool developed for the <a href="
 ## Installation
 Python 3.6
 
-
-### Setup
-
-> Update and install this package first
-
-
 ### Using Docker
 
 1) Download Docker for Desktop - restart your computer after installation and make sure it is running before continuing. In Docker Desktop, especially on Macs, please increase the amount of memory available to at least 8GB.
