@@ -3,3 +3,9 @@
 *.DS_Store
 _pycache_/
 _pycache_
+DDI_Website/Home/_pycache_/
+.vs/
+.vscode/
+data/
+venv/
+__pycache__/

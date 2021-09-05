@@ -1,0 +1,5 @@
+Set-ExecutionPolicy Unrestricted -Scope Process
+venv\Scripts\activate
+
+docker build --tag imageFlow .
+docker run --publish 8000:8000 imageFlow

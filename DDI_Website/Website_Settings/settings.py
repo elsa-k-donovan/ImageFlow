@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'Website_Settings.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': config.PostgreSQL['Name'],
         'HOST': config.PostgreSQL['Host'],
         'USER':  config.PostgreSQL['UserName'],
