@@ -36,6 +36,8 @@ Python 3.6
 
 3) Run docker-compose build to build (required first boot/update) and docker-compose up to start server
 
+4) Go to http://127.0.0.1:8000/login/ on your browser to begin.
+
 ### Without Docker
 
 To run this server on your local host:
