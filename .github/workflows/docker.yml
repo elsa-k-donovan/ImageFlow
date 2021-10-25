@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Dpcker Series CI
+name: Docker Series CI
 
 # Controls when the workflow will run
 on:

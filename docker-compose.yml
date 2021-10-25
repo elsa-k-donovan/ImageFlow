@@ -1,17 +1,49 @@
+#container for Apache
+#container for celery[deprecated]
+
+#use watchTower container
+
+#use github actions
+
+# version: "3.8"
+# services: 
+#   imageflow:
+#     build: .
+#     volumes:
+#       - .:/django
+#     ports:
+#       - 8000:8000
+
+#     networks:
+
+#     image: imageflow:django
+#     container_name: django_container
+#     command: python DDI_Website/manage.py runserver 0.0.0.0:8000
+#     depends_on: 
+#       - db
+#     restart: unless-stopped
+    
+#   db: 
+#     image: postgres
+#     volumes:
+#       - ./data/db:/var/lib/postgresql/data
+#     environment:
+#       - POSTGRES_DB=postgres
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=postgres
+#     container_name: postgres_db
+#     restart: unless-stopped
+
+#   worker:
+#     command: celery -A Website_Settings worker -l info
+
+
+
 version: "3.8"
-services: 
-  imageflow:
-    build: .
-    volumes:
-      - .:/django
-    ports:
-      - 8000:8000
-    image: imageflow:django
-    container_name: django_container
-    command: python DDI_Website/manage.py runserver 0.0.0.0:8000
-    depends_on: 
-      - db
-  db: 
+
+
+services:
+  db:
     image: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
@@ -19,4 +51,57 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    container_name: postgres_db
+  imageflow:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+
+# MOST RECENT VERSION
+# services: 
+#   imageflow:
+#     build: 
+#       context: .
+#     env_file:
+#       - .env
+#     volumes:
+#       - .:/app
+#     ports:
+#       - "8000:8000"
+#     # image: imageflow:django
+#     container_name: django_container
+#     #entrypoint: /docker-entrypoint.sh
+#     # command: python DDI_Website/manage.py runserver
+#     links:
+#       - db:db
+#     depends_on:
+#       - db
+#   db: 
+#     image: postgres:latest
+#     volumes:
+#       - ./data/db:/var/lib/postgresql/data
+#     container_name: db
+#     restart: always
+#     environment:
+#       # POSTGRES_HOST_AUTH_METHOD: trust
+#       POSTGRES_DB: postgres
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: admin
+#     ports:
+#     - "5432:5432"
+    
+
+  # watchtower:
+  #   container_name: watchtower
+  #   image: containrrr/watchtower
+  #   command:
+  #     - --cleanup
+  #     - --interval=300
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #   restart: unless-stopped 

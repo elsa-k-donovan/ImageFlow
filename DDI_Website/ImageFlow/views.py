@@ -36,6 +36,7 @@ def ImageGathering(request):
         api_key = submited_data["api_key"]
         api_secret_key = submited_data["api_secret_key"]
         hashtags = submited_data["hashtags"]
+        env_name = submited_data["env_name"]
 
         ### TESTING
         print("startDate = " + startDate)
@@ -45,6 +46,7 @@ def ImageGathering(request):
         print("board = " + board)
         print("Country = " + Country)
         print("fb_access_tk = " + fb_access_tk)
+        print("env_name = " + str(env_name))
         #print("access_key = " + access_key)
 
         if ',' in subReddit:
@@ -58,7 +60,7 @@ def ImageGathering(request):
             board = [board]
         
         #tasks_ImageGathering(startDate, endDate, platform, subReddit, board, Country, fb_access_tk)
-        task = tasks_ImageGathering.delay(startDate , endDate, platform, subReddit, board, Country, fb_access_tk, api_key, api_secret_key, hashtags)
+        task = tasks_ImageGathering.delay(startDate , endDate, platform, subReddit, board, Country, fb_access_tk, api_key, api_secret_key, hashtags, env_name)
         # task_id = task.task_id
         numTasks = TaskResult.objects.all().count() + 1
 

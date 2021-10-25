@@ -44,6 +44,7 @@ class Image_Gathering(forms.Form):
     api_key = forms.CharField(label = 'Twitter API Key', max_length=500, required=False, widget=forms.TextInput(attrs={'size':'80'}))
     api_secret_key = forms.CharField(label = 'Twitter API Secret Key', max_length=500, required=False, widget=forms.TextInput(attrs={'size':'80'}))
     hashtags = forms.CharField(label = 'Hashtags', max_length=500, required=False, widget=forms.TextInput(attrs={'size':'80'}))
+    env_name = forms.CharField(label = 'Environment Name', max_length=500, required=False, widget=forms.TextInput(attrs={'size':'80'}))
 
     #time_estimate = forms.
 
@@ -62,6 +63,7 @@ class Image_Gathering(forms.Form):
                 'api_key',
                 'api_secret_key',
                 'hashtags',
+                'env_name',
                 'board',
                 'Country'
             ),

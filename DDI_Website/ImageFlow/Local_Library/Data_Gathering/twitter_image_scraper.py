@@ -59,7 +59,7 @@ def download_image(url):
     return file_name
 
 #def scrape_twitter(access_key, access_secret_key, api_key, api_secret_key, start, end, hashtags):
-def scrape_twitter(api_key, api_secret_key, start, end, hashtags):
+def scrape_twitter(api_key, api_secret_key, start, end, hashtags, env_name):
 
     start_time = time.time()
 
@@ -100,7 +100,7 @@ def scrape_twitter(api_key, api_secret_key, start, end, hashtags):
     timeline = tweepy.Cursor(api.search_tweets, q=hashtags, until=end).items()
 
     #premium or Acadmic API
-    #timeline = tweepy.Cursor(api.search_full_archive, environment_name='**ENV NAME FROM API**', query=hashtags, fromDate=date_since_pro, toDate=date_until_pro).items()
+    #timeline = tweepy.Cursor(api.search_full_archive, environment_name=env_name, query=hashtags, fromDate=date_since_pro, toDate=date_until_pro).items()
 
     print(timeline)
     num = 0

@@ -27,7 +27,7 @@ SECRET_KEY = config.Django['Key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['webapp.digitaldemocracies.org', '127.0.0.1']
+ALLOWED_HOSTS = ['webapp.digitaldemocracies.org', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     #'Scraper',
     'Templates_HTML',
     'crispy_forms',
-    'corsheaders',
+    #'corsheaders',
     'django_celery_results',
     'celery_progress',
     'django.contrib.postgres',

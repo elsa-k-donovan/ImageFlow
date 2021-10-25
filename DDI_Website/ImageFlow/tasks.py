@@ -23,7 +23,7 @@ from Website_Settings.file_paths import filepaths
 data_dir = filepaths.file_server_path + "ImageFlow/img/"
 
 @shared_task(bind = True , name = "ImageGathering")
-def ImageGathering(self, startDate , endDate, platform, subReddit, board, Country, fb_access_tk, api_key, api_secret_key, hashtags):
+def ImageGathering(self, startDate , endDate, platform, subReddit, board, Country, fb_access_tk, api_key, api_secret_key, hashtags, env_name):
     """
     Returns a dataframe with the downloaded image meta data for storing!
 
@@ -50,7 +50,7 @@ def ImageGathering(self, startDate , endDate, platform, subReddit, board, Countr
 
     if "Twitter" in platform:
         # lets process Twitter
-        twit_df = scrape_twitter(api_key, api_secret_key, startDate, endDate, hashtags)
+        twit_df = scrape_twitter(api_key, api_secret_key, startDate, endDate, hashtags, env_name)
         outputs.append(twit_df)
         pass
 
