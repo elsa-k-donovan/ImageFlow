@@ -8,7 +8,7 @@
 
 - [Introduction](#introduction)
 - [Installation](#installation)
-- [Web Scrapers](#web)
+- [Web Scrapers](#web-scrapers)
 - [FAQ](#faq)
 
 
@@ -32,65 +32,21 @@ Python 3.6
 
 1) Download <a href="https://www.docker.com/products/docker-desktop"> Docker for Desktop </a> - restart your computer after installation and make sure it is running before continuing. In Docker Desktop, especially on Macs, please increase the amount of memory available to at least 8GB.
 
-2) Clone this repo to your local machine and CD into Repo in terminal or CMD
+2) Clone this repo to your local machine
 
-3) Run docker-compose build to build (required first boot/update) and docker-compose up to start server
+3) Open Terminal (Mac) or CMD (Windows) and CD into the local repo.
 
-4) Go to http://127.0.0.1:8000/login/ on your browser to begin.
+4) Run docker-compose up to start server
 
-### Without Docker
+      ```
+      docker-compose up 
+      ```
 
-To run this server on your local host:
-
-1) git clone this repo into your text editor
-
-2) On the front page of this repo, copy the requirements.txt file into your project and download it
-
-      a) need to download postgresql and requirements.txt
-        
-        brew install postgresql
-        pip install -r requirements.txt 
-               
-3) Create a Django key and PostgreSQL database.
-
-
-4) Edit the 'frontend_config.py' file in Website_Settings and add in your own key and database information.
-
-       Django = {
-           "Key": '',
-       }
-
-       PostgreSQL = {
-           "UserName": "",
-           "Password": "",
-           "Name": "",
-           "Host": "",
-           "Port": ,
-       }
-        
-5) Go into the DDI directory
-
-        cd DDI_Website
-
-6) Then once the above steps are completed, you now run in order in the terminal:
-
-        python manage.py makemigrations
-        python manage.py migrate
-        python manage.py runserver // For just the regular server (for testing purposes)
-
-7) Then create a new terminal instance while still in DDI_Website folder
-
-        if windows 10:
-            pip install gevent 
-            celery -A Website_Settings worker -l info -P gevent
-        if macOS:
-            celery -A Website_Settings worker -l info
-
-This will let you run your tasks in the background using Celery
+5) Go to http://localhost:8000/login/ on your browser to begin.
 
 Now the website is fully functional!
 
-Just register a new user at http://127.0.0.1:8000/login/ and enjoy!
+Just register a new user at http://localhost:8000/login/ and enjoy!
 
 ## Web Scrapers
 
