@@ -28,11 +28,17 @@ This app is a locally-hosted version of the web-tool developed for the <a href="
 ## Installation
 Python 3.6
 
+### Using Docker
 
-### Setup
+1) Download <a href="https://www.docker.com/products/docker-desktop"> Docker for Desktop </a> - restart your computer after installation and make sure it is running before continuing. In Docker Desktop, especially on Macs, please increase the amount of memory available to at least 8GB.
 
-> Update and install this package first
+2) Clone this repo to your local machine and CD into Repo in terminal or CMD
 
+3) Run docker-compose build to build (required first boot/update) and docker-compose up to start server
+
+4) Go to http://127.0.0.1:8000/login/ on your browser to begin.
+
+### Without Docker
 
 To run this server on your local host:
 
