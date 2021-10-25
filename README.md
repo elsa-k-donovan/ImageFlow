@@ -34,9 +34,9 @@ Python 3.6
 
 2) Clone this repo to your local machine and CD into Repo in terminal or CMD
 
-3) Run docker-compose build to build (required first boot/update) and docker-compose up to start server
+3) Run docker-compose up to start server
 
-4) Go to http://127.0.0.1:8000/login/ on your browser to begin.
+4) Go to http://localhost:8000/login/ on your browser to begin.
 
 ### Without Docker
 
