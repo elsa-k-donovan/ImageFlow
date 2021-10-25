@@ -8,7 +8,7 @@
 
 - [Introduction](#introduction)
 - [Installation](#installation)
-- [Web Scrapers](#web)
+- [Web Scrapers](#web scrapers)
 - [FAQ](#faq)
 
 
