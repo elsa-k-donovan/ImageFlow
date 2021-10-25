@@ -38,9 +38,9 @@ Python 3.6
 
 4) Run docker-compose up to start server
 
-      '''
+      ```
       docker-compose up 
-      '''
+      ```
 
 5) Go to http://localhost:8000/login/ on your browser to begin.
 
