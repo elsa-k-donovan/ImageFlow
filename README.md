@@ -44,60 +44,9 @@ Python 3.6
 
 5) Go to http://localhost:8000/login/ on your browser to begin.
 
-
-### Without Docker
-
-To run this server on your local host:
-
-1) git clone this repo into your text editor
-
-2) On the front page of this repo, copy the requirements.txt file into your project and download it
-
-      a) need to download postgresql and requirements.txt
-        
-        brew install postgresql
-        pip install -r requirements.txt 
-               
-3) Create a Django key and PostgreSQL database.
-
-
-4) Edit the 'frontend_config.py' file in Website_Settings and add in your own key and database information.
-
-       Django = {
-           "Key": '',
-       }
-
-       PostgreSQL = {
-           "UserName": "",
-           "Password": "",
-           "Name": "",
-           "Host": "",
-           "Port": ,
-       }
-        
-5) Go into the DDI directory
-
-        cd DDI_Website
-
-6) Then once the above steps are completed, you now run in order in the terminal:
-
-        python manage.py makemigrations
-        python manage.py migrate
-        python manage.py runserver // For just the regular server (for testing purposes)
-
-7) Then create a new terminal instance while still in DDI_Website folder
-
-        if windows 10:
-            pip install gevent 
-            celery -A Website_Settings worker -l info -P gevent
-        if macOS:
-            celery -A Website_Settings worker -l info
-
-This will let you run your tasks in the background using Celery
-
 Now the website is fully functional!
 
-Just register a new user at http://127.0.0.1:8000/login/ and enjoy!
+Just register a new user at http://localhost:8000/login/ and enjoy!
 
 ## Web Scrapers
 
