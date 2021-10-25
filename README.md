@@ -32,11 +32,18 @@ Python 3.6
 
 1) Download <a href="https://www.docker.com/products/docker-desktop"> Docker for Desktop </a> - restart your computer after installation and make sure it is running before continuing. In Docker Desktop, especially on Macs, please increase the amount of memory available to at least 8GB.
 
-2) Clone this repo to your local machine and CD into Repo in terminal or CMD
+2) Clone this repo to your local machine
 
-3) Run docker-compose up to start server
+3) Open Terminal (Mac) or CMD (Windows) and CD into the local repo.
 
-4) Go to http://localhost:8000/login/ on your browser to begin.
+4) Run docker-compose up to start server
+
+      '''
+      docker-compose up 
+      '''
+
+5) Go to http://localhost:8000/login/ on your browser to begin.
+
 
 ### Without Docker
 
