@@ -1,8 +1,6 @@
 #container for Apache
 #container for celery[deprecated]
-
 #use watchTower container
-
 #use github actions
 
 # version: "3.8"
@@ -37,6 +35,24 @@
 #   worker:
 #     command: celery -A Website_Settings worker -l info
 
+#add rabbitMq
+
+#   rabbitmq:
+#     image: rabbitmq:3.6.10
+#     volumes:
+#       - media:/code/media
+
+#   worker:
+#     build: ./docker/
+#     command: celery -A example_worker worker --loglevel=debug -n worker1.%h
+#     volumes:
+#       - .:/code
+#       - media:/code/media
+#     depends_on:
+#       - db
+#       - rabbitmq
+# volumes:
+#   media: 
 
 
 version: "3.8"
@@ -60,41 +76,15 @@ services:
       - "8000:8000"
     depends_on:
       - db
+  celery:
+    build: .
+    command: celery -A Website_Settings worker -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - imageflow
 
 
-# MOST RECENT VERSION
-# services: 
-#   imageflow:
-#     build: 
-#       context: .
-#     env_file:
-#       - .env
-#     volumes:
-#       - .:/app
-#     ports:
-#       - "8000:8000"
-#     # image: imageflow:django
-#     container_name: django_container
-#     #entrypoint: /docker-entrypoint.sh
-#     # command: python DDI_Website/manage.py runserver
-#     links:
-#       - db:db
-#     depends_on:
-#       - db
-#   db: 
-#     image: postgres:latest
-#     volumes:
-#       - ./data/db:/var/lib/postgresql/data
-#     container_name: db
-#     restart: always
-#     environment:
-#       # POSTGRES_HOST_AUTH_METHOD: trust
-#       POSTGRES_DB: postgres
-#       POSTGRES_USER: postgres
-#       POSTGRES_PASSWORD: admin
-#     ports:
-#     - "5432:5432"
-    
 
   # watchtower:
   #   container_name: watchtower
